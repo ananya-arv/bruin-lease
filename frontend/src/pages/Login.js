@@ -314,7 +314,7 @@ export default function AuthenticationUI() {
                 type="button"
                 onClick={() => {
                   continueAsGuest();
-                  navigate('/dashboard');
+                  navigate('/listings');
                 }}
                 className="switch-mode-btn"
                 disabled={isLoading}
