@@ -129,7 +129,7 @@ export default function AuthenticationUI() {
               className="ucla-logo"
               />
           </div>
-          <h1>BruinRent</h1>
+          <h1>BruinLease</h1>
           <p>UCLA Off-Campus Housing Finder</p>
         </div>
 
@@ -314,7 +314,7 @@ export default function AuthenticationUI() {
                 type="button"
                 onClick={() => {
                   continueAsGuest();
-                  navigate('/dashboard');
+                  navigate('/listings');
                 }}
                 className="switch-mode-btn"
                 disabled={isLoading}
