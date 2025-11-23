@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import CreateListing from './pages/CreateListing';
 import ListingsPage from './pages/ListingsPage';
 import MyListings from './pages/MyListings';
+import ListingDetail from './pages/ListingDetail';
 import Messages from './pages/Messages'; 
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
         <Route path="/listings" element={<ListingsPage />} />
+        <Route path="/listings/:id" element={<ListingDetail />} />
         <Route path="/messages" element={<Messages />} />
       </Routes>
     </BrowserRouter>
