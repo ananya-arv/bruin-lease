@@ -8,7 +8,7 @@ export default function AuthenticationUI() {
   const [searchParams] = useSearchParams();
   const successMessage = searchParams.get('message');
   const modeParam = searchParams.get('mode');
-  const { showSuccess, showError } = useToast();
+  const { showSuccess, showError, showInfo } = useToast();
   
   const [isLogin, setIsLogin] = useState(modeParam !== 'register');
   const [showPassword, setShowPassword] = useState(false);

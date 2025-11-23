@@ -1,4 +1,3 @@
-// frontend/src/pages/CreateListing.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listingAPI } from '../services/api';
@@ -151,7 +150,7 @@ const CreateListingPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
     
     if (!validateForm()) {
       return;
