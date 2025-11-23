@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { listingAPI } from '../services/api';
 import ListingCard from '../components/ListingCard';
+import Navbar from '../components/Navbar';
 import '../styles/ListingsPage.css';
 
 const ListingsPage = () => {
@@ -71,113 +72,122 @@ const ListingsPage = () => {
 
   if (loading) {
     return (
-      <div className="listings-page">
-        <div className="loading">Loading listings...</div>
-      </div>
+      <>
+        <Navbar />
+        <div className="listings-page">
+          <div className="loading">Loading listings...</div>
+        </div>
+      </>
     );
   }
 
   if (error) {
     return (
-      <div className="listings-page">
-        <div className="error">{error}</div>
-      </div>
+      <>
+        <Navbar />
+        <div className="listings-page">
+          <div className="error">{error}</div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="listings-page">
-      <div className="listings-header">
-        <h1>Available Listings</h1>
-        <p>Find your perfect housing near UCLA</p>
-      </div>
-
-      <div className="search-filter-section">
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by title, address, or description..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <>
+      <Navbar />
+      <div className="listings-page">
+        <div className="listings-header">
+          <h1>Available Listings</h1>
+          <p>Find your perfect housing near UCLA</p>
         </div>
 
-        <div className="filters">
-          <div className="filter-group">
-            <label>Min Price</label>
+        <div className="search-filter-section">
+          <div className="search-bar">
             <input
-              type="number"
-              name="minPrice"
-              placeholder="$0"
-              value={filters.minPrice}
-              onChange={handleFilterChange}
+              type="text"
+              placeholder="Search by title, address, or description..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <div className="filter-group">
-            <label>Max Price</label>
-            <input
-              type="number"
-              name="maxPrice"
-              placeholder="$5000"
-              value={filters.maxPrice}
-              onChange={handleFilterChange}
-            />
-          </div>
+          <div className="filters">
+            <div className="filter-group">
+              <label>Min Price</label>
+              <input
+                type="number"
+                name="minPrice"
+                placeholder="$0"
+                value={filters.minPrice}
+                onChange={handleFilterChange}
+              />
+            </div>
 
-          <div className="filter-group">
-            <label>Bedrooms</label>
-            <select
-              name="bedrooms"
-              value={filters.bedrooms}
-              onChange={handleFilterChange}
-            >
-              <option value="">Any</option>
-              <option value="0">Studio</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4+</option>
-            </select>
-          </div>
+            <div className="filter-group">
+              <label>Max Price</label>
+              <input
+                type="number"
+                name="maxPrice"
+                placeholder="$5000"
+                value={filters.maxPrice}
+                onChange={handleFilterChange}
+              />
+            </div>
 
-          <div className="filter-group">
-            <label>Max Distance (mi)</label>
-            <input
-              type="number"
-              name="maxDistance"
-              placeholder="5"
-              step="0.1"
-              value={filters.maxDistance}
-              onChange={handleFilterChange}
-            />
-          </div>
+            <div className="filter-group">
+              <label>Bedrooms</label>
+              <select
+                name="bedrooms"
+                value={filters.bedrooms}
+                onChange={handleFilterChange}
+              >
+                <option value="">Any</option>
+                <option value="0">Studio</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
 
-          <button className="clear-filters-btn" onClick={clearFilters}>
-            Clear Filters
-          </button>
+            <div className="filter-group">
+              <label>Max Distance (mi)</label>
+              <input
+                type="number"
+                name="maxDistance"
+                placeholder="5"
+                step="0.1"
+                value={filters.maxDistance}
+                onChange={handleFilterChange}
+              />
+            </div>
+
+            <button className="clear-filters-btn" onClick={clearFilters}>
+              Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <div className="listings-results">
+          <p className="results-count">
+            {filteredListings.length} {filteredListings.length === 1 ? 'listing' : 'listings'} found
+          </p>
+
+          {filteredListings.length === 0 ? (
+            <div className="no-listings">
+              <p>No listings match your criteria</p>
+              <button onClick={clearFilters}>Clear filters</button>
+            </div>
+          ) : (
+            <div className="listings-grid">
+              {filteredListings.map((listing) => (
+                <ListingCard key={listing._id} listing={listing} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="listings-results">
-        <p className="results-count">
-          {filteredListings.length} {filteredListings.length === 1 ? 'listing' : 'listings'} found
-        </p>
-
-        {filteredListings.length === 0 ? (
-          <div className="no-listings">
-            <p>No listings match your criteria</p>
-            <button onClick={clearFilters}>Clear filters</button>
-          </div>
-        ) : (
-          <div className="listings-grid">
-            {filteredListings.map((listing) => (
-              <ListingCard key={listing._id} listing={listing} />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

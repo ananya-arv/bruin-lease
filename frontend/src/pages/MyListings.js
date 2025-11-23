@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { listingAPI } from '../services/api';
+import Navbar from '../components/Navbar';
+import ListingCard from '../components/ListingCard';
 import '../styles/MyListings.css';
 
 const MyListings = () => {
@@ -47,7 +49,8 @@ const MyListings = () => {
     }
   };
 
-  const startEdit = (listing) => {
+  const startEdit = (listing, e) => {
+    e.stopPropagation();
     setEditingListing(listing._id);
     setEditFormData({
       title: listing.title,
@@ -95,246 +98,219 @@ const MyListings = () => {
 
   if (loading) {
     return (
-      <div className="my-listings-page">
-        <div className="loading">Loading your listings...</div>
-      </div>
+      <>
+        <Navbar />
+        <div className="my-listings-page">
+          <div className="loading">Loading your listings...</div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="my-listings-page">
-      <div className="my-listings-container">
-        <div className="my-listings-header">
-          <div>
-            <h1>My Listings</h1>
-            <p>Manage your posted apartments and subleases</p>
-          </div>
-          <button 
-            className="create-new-btn"
-            onClick={() => navigate('/create-listing')}
-          >
-            + Create New Listing
-          </button>
-        </div>
-
-        {error && (
-          <div className="error-banner">
-            {error}
-          </div>
-        )}
-
-        {listings.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">📝</div>
-            <h2>No listings yet</h2>
-            <p>Start by creating your first listing to find tenants or roommates</p>
+    <>
+      <Navbar />
+      <div className="my-listings-page">
+        <div className="my-listings-container">
+          <div className="my-listings-header">
+            <div>
+              <h1>My Listings</h1>
+              <p>Manage your posted apartments and subleases</p>
+            </div>
             <button 
-              className="create-first-btn"
+              className="create-new-btn"
               onClick={() => navigate('/create-listing')}
             >
-              Create Your First Listing
+              + Create New Listing
             </button>
           </div>
-        ) : (
-          <>
-            <div className="filter-bar">
-              <div className="filter-tabs">
-                <button 
-                  className={filterStatus === 'all' ? 'active' : ''}
-                  onClick={() => setFilterStatus('all')}
-                >
-                  All ({listings.length})
-                </button>
-                <button 
-                  className={filterStatus === 'available' ? 'active' : ''}
-                  onClick={() => setFilterStatus('available')}
-                >
-                  Available ({listings.filter(l => l.availability === 'Available').length})
-                </button>
-                <button 
-                  className={filterStatus === 'pending' ? 'active' : ''}
-                  onClick={() => setFilterStatus('pending')}
-                >
-                  Pending ({listings.filter(l => l.availability === 'Pending').length})
-                </button>
-                <button 
-                  className={filterStatus === 'rented' ? 'active' : ''}
-                  onClick={() => setFilterStatus('rented')}
-                >
-                  Rented ({listings.filter(l => l.availability === 'Rented').length})
-                </button>
-              </div>
+
+          {error && (
+            <div className="error-banner">
+              {error}
             </div>
+          )}
 
-            <div className="listings-list">
-              {filteredListings.map((listing) => (
-                <div key={listing._id} className="listing-item">
-                  {editingListing === listing._id ? (
-                    <div className="edit-form">
-                      <div className="edit-form-grid">
-                        <div className="form-group">
-                          <label>Title</label>
-                          <input
-                            type="text"
-                            name="title"
-                            value={editFormData.title}
-                            onChange={handleEditChange}
-                          />
-                        </div>
+          {listings.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-icon">📝</div>
+              <h2>No listings yet</h2>
+              <p>Start by creating your first listing to find tenants or roommates</p>
+              <button 
+                className="create-first-btn"
+                onClick={() => navigate('/create-listing')}
+              >
+                Create Your First Listing
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="filter-bar">
+                <div className="filter-tabs">
+                  <button 
+                    className={filterStatus === 'all' ? 'active' : ''}
+                    onClick={() => setFilterStatus('all')}
+                  >
+                    All ({listings.length})
+                  </button>
+                  <button 
+                    className={filterStatus === 'available' ? 'active' : ''}
+                    onClick={() => setFilterStatus('available')}
+                  >
+                    Available ({listings.filter(l => l.availability === 'Available').length})
+                  </button>
+                  <button 
+                    className={filterStatus === 'pending' ? 'active' : ''}
+                    onClick={() => setFilterStatus('pending')}
+                  >
+                    Pending ({listings.filter(l => l.availability === 'Pending').length})
+                  </button>
+                  <button 
+                    className={filterStatus === 'rented' ? 'active' : ''}
+                    onClick={() => setFilterStatus('rented')}
+                  >
+                    Rented ({listings.filter(l => l.availability === 'Rented').length})
+                  </button>
+                </div>
+              </div>
 
-                        <div className="form-group">
-                          <label>Price ($/month)</label>
-                          <input
-                            type="number"
-                            name="price"
-                            value={editFormData.price}
-                            onChange={handleEditChange}
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Address</label>
-                          <input
-                            type="text"
-                            name="address"
-                            value={editFormData.address}
-                            onChange={handleEditChange}
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Bedrooms</label>
-                          <input
-                            type="number"
-                            name="bedrooms"
-                            value={editFormData.bedrooms}
-                            onChange={handleEditChange}
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Distance from UCLA (miles)</label>
-                          <input
-                            type="number"
-                            name="distanceFromUCLA"
-                            step="0.1"
-                            value={editFormData.distanceFromUCLA}
-                            onChange={handleEditChange}
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Lease Duration</label>
-                          <input
-                            type="text"
-                            name="leaseDuration"
-                            value={editFormData.leaseDuration}
-                            onChange={handleEditChange}
-                          />
-                        </div>
-
-                        <div className="form-group full-width">
-                          <label>Status</label>
-                          <select
-                            name="availability"
-                            value={editFormData.availability}
-                            onChange={handleEditChange}
-                          >
-                            <option value="Available">Available</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Rented">Rented</option>
-                          </select>
-                        </div>
-
-                        <div className="form-group full-width">
-                          <label>Description</label>
-                          <textarea
-                            name="description"
-                            value={editFormData.description}
-                            onChange={handleEditChange}
-                            rows="4"
-                          />
-                        </div>
+              {editingListing ? (
+                <div className="edit-form-container">
+                  <h2>Edit Listing</h2>
+                  <div className="edit-form">
+                    <div className="edit-form-grid">
+                      <div className="form-group">
+                        <label>Title</label>
+                        <input
+                          type="text"
+                          name="title"
+                          value={editFormData.title}
+                          onChange={handleEditChange}
+                        />
                       </div>
 
-                      <div className="edit-actions">
-                        <button 
-                          className="save-btn"
-                          onClick={() => handleUpdate(listing._id)}
+                      <div className="form-group">
+                        <label>Price ($/month)</label>
+                        <input
+                          type="number"
+                          name="price"
+                          value={editFormData.price}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group full-width">
+                        <label>Address</label>
+                        <input
+                          type="text"
+                          name="address"
+                          value={editFormData.address}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label>Bedrooms</label>
+                        <input
+                          type="number"
+                          name="bedrooms"
+                          value={editFormData.bedrooms}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label>Distance from UCLA (miles)</label>
+                        <input
+                          type="number"
+                          name="distanceFromUCLA"
+                          step="0.1"
+                          value={editFormData.distanceFromUCLA}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label>Lease Duration</label>
+                        <input
+                          type="text"
+                          name="leaseDuration"
+                          value={editFormData.leaseDuration}
+                          onChange={handleEditChange}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label>Status</label>
+                        <select
+                          name="availability"
+                          value={editFormData.availability}
+                          onChange={handleEditChange}
                         >
-                          Save Changes
-                        </button>
-                        <button 
-                          className="cancel-btn"
-                          onClick={cancelEdit}
-                        >
-                          Cancel
-                        </button>
+                          <option value="Available">Available</option>
+                          <option value="Pending">Pending</option>
+                          <option value="Rented">Rented</option>
+                        </select>
+                      </div>
+
+                      <div className="form-group full-width">
+                        <label>Description</label>
+                        <textarea
+                          name="description"
+                          value={editFormData.description}
+                          onChange={handleEditChange}
+                          rows="4"
+                        />
                       </div>
                     </div>
-                  ) : (
-                    <>
-                      <div className="listing-main">
-                        <div className="listing-image-placeholder">
-                          🏠
-                        </div>
-                        <div className="listing-info">
-                          <div className="listing-title-row">
-                            <h3>{listing.title}</h3>
-                            <span className={`status-badge ${listing.availability.toLowerCase()}`}>
-                              {listing.availability}
-                            </span>
-                          </div>
-                          <p className="listing-address">📍 {listing.address}</p>
-                          <div className="listing-details">
-                            <span className="detail-item">
-                              💰 ${listing.price}/month
-                            </span>
-                            <span className="detail-item">
-                              🛏️ {listing.bedrooms} {listing.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
-                            </span>
-                            <span className="detail-item">
-                              📏 {listing.distanceFromUCLA} mi from UCLA
-                            </span>
-                            <span className="detail-item">
-                              📅 {listing.leaseDuration}
-                            </span>
-                          </div>
-                          <p className="listing-description">{listing.description}</p>
-                          <p className="listing-date">
-                            Posted on {new Date(listing.createdAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
+
+                    <div className="edit-actions">
+                      <button 
+                        className="cancel-btn"
+                        onClick={cancelEdit}
+                      >
+                        Cancel
+                      </button>
+                      <button 
+                        className="save-btn"
+                        onClick={() => handleUpdate(editingListing)}
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="listings-grid">
+                  {filteredListings.map((listing) => (
+                    <div key={listing._id} className="listing-card-wrapper">
+                      <ListingCard listing={listing} />
                       <div className="listing-actions">
                         <button 
-                          className="view-btn"
-                          onClick={() => navigate(`/listings/${listing._id}`)}
-                        >
-                          View Details
-                        </button>
-                        <button 
                           className="edit-btn"
-                          onClick={() => startEdit(listing)}
+                          onClick={(e) => startEdit(listing, e)}
                         >
                           Edit
                         </button>
                         <button 
                           className="delete-btn"
-                          onClick={() => handleDelete(listing._id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(listing._id);
+                          }}
                         >
                           Delete
                         </button>
                       </div>
-                    </>
-                  )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </>
-        )}
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

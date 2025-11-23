@@ -22,6 +22,11 @@ const listingSchema = new mongoose.Schema({
     required: [true, 'Please add an address'],
     trim: true
   },
+  zipCode: {  
+    type: String,
+    required: [true, 'Please add a zip code'],
+    trim: true
+  },
   bedrooms: {
     type: Number,
     required: [true, 'Please add number of bedrooms'],
