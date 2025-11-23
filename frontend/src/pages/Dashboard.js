@@ -51,11 +51,11 @@ const Dashboard = () => {
       <div className="dashboard-page">
         <div className="dashboard-container">
           <div className="dashboard-header">
-            <div className="welcome-section">
-              <h1>Welcome back, {user?.name}! 👋</h1>
-              <p className="user-email">{user?.email}</p>
-            </div>
+          <div className="welcome-section">
+            <h1>Welcome, {user?.name}!</h1>
+            <p className="user-email">{user?.email}</p>
           </div>
+        </div>
 
           <div className="dashboard-stats">
             <div className="stat-card">

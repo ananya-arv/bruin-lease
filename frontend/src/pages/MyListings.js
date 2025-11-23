@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import { listingAPI } from '../services/api';
 import Navbar from '../components/Navbar';
 import ListingCard from '../components/ListingCard';
@@ -9,9 +10,9 @@ import '../styles/MyListings.css';
 const MyListings = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [editingListing, setEditingListing] = useState(null);
   const [editFormData, setEditFormData] = useState({});
@@ -25,9 +26,8 @@ const MyListings = () => {
       setLoading(true);
       const response = await listingAPI.getMyListings();
       setListings(response.data.data);
-      setError(null);
     } catch (err) {
-      setError('Failed to load your listings');
+      showError('Failed to load your listings');
       console.error(err);
     } finally {
       setLoading(false);
@@ -35,16 +35,16 @@ const MyListings = () => {
   };
 
   const handleDelete = async (listingId) => {
-    if (!window.confirm('Are you sure you want to delete this listing?')) {
+    if (!window.confirm('Are you sure you want to delete this listing? This action cannot be undone.')) {
       return;
     }
 
     try {
       await listingAPI.deleteListing(listingId);
       setListings(listings.filter(listing => listing._id !== listingId));
-      alert('Listing deleted successfully');
+      showSuccess('Listing deleted successfully');
     } catch (err) {
-      alert('Failed to delete listing');
+      showError('Failed to delete listing');
       console.error(err);
     }
   };
@@ -84,9 +84,9 @@ const MyListings = () => {
       ));
       setEditingListing(null);
       setEditFormData({});
-      alert('Listing updated successfully');
+      showSuccess('Listing updated successfully');
     } catch (err) {
-      alert('Failed to update listing');
+      showError('Failed to update listing');
       console.error(err);
     }
   };
@@ -125,12 +125,6 @@ const MyListings = () => {
             </button>
           </div>
 
-          {error && (
-            <div className="error-banner">
-              {error}
-            </div>
-          )}
-
           {listings.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">📝</div>
@@ -149,25 +143,33 @@ const MyListings = () => {
                 <div className="filter-tabs">
                   <button 
                     className={filterStatus === 'all' ? 'active' : ''}
-                    onClick={() => setFilterStatus('all')}
+                    onClick={() => {
+                      setFilterStatus('all');
+                    }}
                   >
                     All ({listings.length})
                   </button>
                   <button 
                     className={filterStatus === 'available' ? 'active' : ''}
-                    onClick={() => setFilterStatus('available')}
+                    onClick={() => {
+                      setFilterStatus('available');
+                    }}
                   >
                     Available ({listings.filter(l => l.availability === 'Available').length})
                   </button>
                   <button 
                     className={filterStatus === 'pending' ? 'active' : ''}
-                    onClick={() => setFilterStatus('pending')}
+                    onClick={() => {
+                      setFilterStatus('pending');
+                    }}
                   >
                     Pending ({listings.filter(l => l.availability === 'Pending').length})
                   </button>
                   <button 
                     className={filterStatus === 'rented' ? 'active' : ''}
-                    onClick={() => setFilterStatus('rented')}
+                    onClick={() => {
+                      setFilterStatus('rented');
+                    }}
                   >
                     Rented ({listings.filter(l => l.availability === 'Rented').length})
                   </button>

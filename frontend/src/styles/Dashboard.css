@@ -34,12 +34,13 @@
 
 /* Dashboard Header */
 .dashboard-header {
-  background: #b8d4eb;
+  background: linear-gradient(135deg, #b8d4eb 0%, #94b8d6 100%);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   margin-bottom: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   text-align: center;
+  border: 1px solid #94b8d6;
 }
 
 .welcome-section {
@@ -48,18 +49,29 @@
 
 .welcome-section h1 {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #111827;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   font-family: 'Lexend', sans-serif;
+  line-height: 1.2;
 }
 
 .user-email {
-  color: #1f2937;
+  color: #374151;
   font-size: 1rem;
   text-align: center;
   font-family: 'Lexend', sans-serif;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.user-email::before {
+  content: "📧";
+  font-size: 1rem;
 }
 
 /* Dashboard Stats */
