@@ -77,17 +77,19 @@ code {
   color: #ffffff;
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 .auth-header p {
   color: #e8f4ff;
   font-size: 1rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Card */
 .auth-card {
-  background: #e8f4ff;
+  background: #b8d4eb;
   border-radius: 1rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   padding: 2rem;
@@ -103,11 +105,13 @@ code {
   font-weight: bold;
   color: #111827;
   margin-bottom: 0.25rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .auth-card-header p {
-  color: #4b5563;
+  color: #1f2937;
   font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Form */
@@ -126,23 +130,26 @@ code {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: #1f2937;
   margin-bottom: 0.25rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .form-label .optional {
-  color: #9ca3af;
+  color: #6b7280;
+  font-family: 'Lexend', sans-serif;
 }
 
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #94b8d6;
   border-radius: 0.5rem;
   font-size: 1rem;
   outline: none;
   transition: all 0.2s;
   font-family: 'Lexend', sans-serif;
+  background: white;
 }
 
 .form-input:focus {
@@ -156,6 +163,7 @@ code {
 
 .form-input::placeholder {
   color: #9ca3af;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Password Input Wrapper */
@@ -191,6 +199,7 @@ code {
   margin-top: 0.25rem;
   font-size: 0.875rem;
   color: #dc2626;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Forgot Password */
@@ -246,8 +255,9 @@ code {
 }
 
 .switch-mode p {
-  color: #4b5563;
+  color: #1f2937;
   font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .switch-mode-btn {
@@ -269,14 +279,16 @@ code {
 .terms-text {
   margin-top: 1rem;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: #1f2937;
   text-align: center;
   line-height: 1.5;
+  font-family: 'Lexend', sans-serif;
 }
 
 .terms-text a {
   color: #4485c9;
   text-decoration: none;
+  font-family: 'Lexend', sans-serif;
 }
 
 .terms-text a:hover {
@@ -289,6 +301,29 @@ code {
   color: #e8f4ff;
   font-size: 0.875rem;
   margin-top: 1.5rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Success Message Banner */
+div[style*="background-color: #d4edda"] {
+  background-color: #d1fae5 !important;
+  color: #065f46 !important;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #a7f3d0 !important;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* General Error Message Banner */
+div[style*="background-color: #f8d7da"] {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #fecaca !important;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Responsive */

@@ -13,7 +13,8 @@ const ListingsPage = () => {
     minPrice: '',
     maxPrice: '',
     bedrooms: '',
-    maxDistance: ''
+    maxDistance: '',
+    minRating: ''
   });
 
   useEffect(() => {
@@ -57,7 +58,12 @@ const ListingsPage = () => {
     const matchesDistance = 
       !filters.maxDistance || listing.distanceFromUCLA <= Number(filters.maxDistance);
 
-    return matchesSearch && matchesPrice && matchesBedrooms && matchesDistance;
+    const matchesRating = 
+      !filters.minRating || 
+      (listing.averageRating >= Number(filters.minRating) && listing.reviewCount > 0);
+
+
+    return matchesSearch && matchesPrice && matchesBedrooms && matchesDistance && matchesRating;
   });
 
   const clearFilters = () => {
@@ -160,6 +166,21 @@ const ListingsPage = () => {
                 value={filters.maxDistance}
                 onChange={handleFilterChange}
               />
+            </div>
+
+            <div className="filter-group">
+              <label>Min Rating ⭐</label>
+              <select
+                name="minRating"
+                value={filters.minRating}
+                onChange={handleFilterChange}
+              >
+                <option value="">Any Rating</option>
+                <option value="4">4+ Stars</option>
+                <option value="3">3+ Stars</option>
+                <option value="2">2+ Stars</option>
+                <option value="1">1+ Stars</option>
+              </select>
             </div>
 
             <button className="clear-filters-btn" onClick={clearFilters}>
