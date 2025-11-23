@@ -17,6 +17,7 @@ function App() {
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
         <Route path="/listings" element={<ListingsPage />} />
+        <Route path="/messages" element={<Messages />} />
       </Routes>
     </BrowserRouter>
   );
