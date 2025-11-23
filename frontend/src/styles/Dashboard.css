@@ -1,8 +1,9 @@
 /* Dashboard Page */
 .dashboard-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fef9c3 100%);
+  background: #4485c9;
   padding: 2rem 1rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .dashboard-container {
@@ -14,7 +15,7 @@
   text-align: center;
   padding: 3rem;
   font-size: 1.25rem;
-  color: #4b5563;
+  color: #ffffff;
 }
 
 /* Guest Banner */
@@ -36,9 +37,11 @@
   padding: 2rem;
   margin-bottom: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+}
+
+.welcome-section {
+  width: 100%;
 }
 
 .welcome-section h1 {
@@ -46,11 +49,13 @@
   font-weight: bold;
   color: #111827;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .user-email {
   color: #6b7280;
   font-size: 1rem;
+  text-align: center;
 }
 
 /* Dashboard Stats */
@@ -84,14 +89,16 @@
 .stat-info h3 {
   font-size: 2rem;
   font-weight: bold;
-  color: #2563eb;
+  color: #4485c9;
   margin: 0;
+  text-align: center;
 }
 
 .stat-info p {
   color: #6b7280;
   font-size: 0.875rem;
   margin: 0;
+  text-align: center;
 }
 
 /* Dashboard Actions */
@@ -116,22 +123,7 @@
 .action-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-color: #2563eb;
-}
-
-.action-card.create-listing-card:hover {
-  border-color: #10b981;
-  background: linear-gradient(to bottom right, #ffffff, #ecfdf5);
-}
-
-.action-card.browse-listings-card:hover {
-  border-color: #2563eb;
-  background: linear-gradient(to bottom right, #ffffff, #eff6ff);
-}
-
-.action-card.my-listings-card:hover {
-  border-color: #f59e0b;
-  background: linear-gradient(to bottom right, #ffffff, #fef9c3);
+  border-color: #4485c9;
 }
 
 .action-icon {
@@ -144,12 +136,14 @@
   font-weight: 600;
   color: #111827;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .action-card p {
   color: #6b7280;
   font-size: 0.875rem;
   margin: 0;
+  text-align: center;
 }
 
 /* Dashboard Sections */
@@ -183,15 +177,16 @@
 .view-all-link {
   background: none;
   border: none;
-  color: #2563eb;
+  color: #4485c9;
   font-weight: 500;
   cursor: pointer;
   font-size: 0.875rem;
   transition: color 0.2s;
+  font-family: 'Lexend', sans-serif;
 }
 
 .view-all-link:hover {
-  color: #1d4ed8;
+  color: #2563eb;
   text-decoration: underline;
 }
 
@@ -208,7 +203,7 @@
 }
 
 .empty-state-small button {
-  background-color: #2563eb;
+  background-color: #4485c9;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -216,10 +211,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-family: 'Lexend', sans-serif;
 }
 
 .empty-state-small button:hover {
-  background-color: #1d4ed8;
+  background-color: #2563eb;
 }
 
 /* Listings Preview */
@@ -239,7 +235,7 @@
 }
 
 .mini-listing-card:hover {
-  border-color: #2563eb;
+  border-color: #4485c9;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
@@ -268,7 +264,7 @@
 
 .mini-price {
   font-weight: 600;
-  color: #2563eb;
+  color: #4485c9;
   font-size: 1rem;
 }
 
@@ -295,7 +291,7 @@
 }
 
 .mini-view-btn {
-  background-color: #2563eb;
+  background-color: #4485c9;
   color: white;
   border: none;
   padding: 0.5rem 1.5rem;
@@ -303,10 +299,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-family: 'Lexend', sans-serif;
 }
 
 .mini-view-btn:hover {
-  background-color: #1d4ed8;
+  background-color: #2563eb;
 }
 
 /* Recent Listings Grid */
@@ -329,6 +326,7 @@
   font-weight: bold;
   color: #111827;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .quick-tips ul {
@@ -349,7 +347,7 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: #2563eb;
+  color: #4485c9;
   font-weight: bold;
 }
 
