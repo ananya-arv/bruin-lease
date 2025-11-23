@@ -133,7 +133,6 @@ const handleAddressBlur = () => {
           canvas.height = height;
           ctx.drawImage(img, 0, 0, width, height);
           
-          // Compress to JPEG with 0.7 quality (reduces size significantly)
           const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
           resolve({
             data: compressedBase64,
