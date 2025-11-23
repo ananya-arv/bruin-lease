@@ -1,3 +1,4 @@
+// frontend/src/pages/ListingsPage.js
 import React, { useState, useEffect } from 'react';
 import { listingAPI } from '../services/api';
 import { useToast } from '../context/ToastContext';
