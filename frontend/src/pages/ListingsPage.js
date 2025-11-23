@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import '../styles/ListingsPage.css';
 
 const ListingsPage = () => {
-  const { showSuccess, showError, showInfo } = useToast();
+  const { showSuccess, showError } = useToast();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -81,12 +81,6 @@ const ListingsPage = () => {
   const applyFilters = () => {
     const activeFilters = Object.entries(filters).filter(([key, value]) => value !== '').length;
     const hasSearch = searchTerm.trim() !== '';
-    
-    if (activeFilters > 0 || hasSearch) {
-      showInfo(`Showing ${filteredListings.length} filtered listing(s)`);
-    } else {
-      showInfo(`Showing all ${listings.length} listing(s)`);
-    }
   };
 
   useEffect(() => {

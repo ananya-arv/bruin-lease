@@ -10,7 +10,7 @@ import '../styles/MyListings.css';
 const MyListings = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { showSuccess, showError, showInfo } = useToast();
+  const { showSuccess, showError } = useToast();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('all');
@@ -26,7 +26,6 @@ const MyListings = () => {
       setLoading(true);
       const response = await listingAPI.getMyListings();
       setListings(response.data.data);
-      showInfo(`Loaded ${response.data.data.length} listing(s)`);
     } catch (err) {
       showError('Failed to load your listings');
       console.error(err);
@@ -63,13 +62,11 @@ const MyListings = () => {
       description: listing.description,
       availability: listing.availability
     });
-    showInfo('Edit mode enabled');
   };
 
   const cancelEdit = () => {
     setEditingListing(null);
     setEditFormData({});
-    showInfo('Edit cancelled');
   };
 
   const handleEditChange = (e) => {
@@ -81,7 +78,6 @@ const MyListings = () => {
 
   const handleUpdate = async (listingId) => {
     try {
-      showInfo('Updating listing...');
       const response = await listingAPI.updateListing(listingId, editFormData);
       setListings(listings.map(listing => 
         listing._id === listingId ? response.data.data : listing
@@ -149,7 +145,6 @@ const MyListings = () => {
                     className={filterStatus === 'all' ? 'active' : ''}
                     onClick={() => {
                       setFilterStatus('all');
-                      showInfo('Showing all listings');
                     }}
                   >
                     All ({listings.length})
@@ -158,7 +153,6 @@ const MyListings = () => {
                     className={filterStatus === 'available' ? 'active' : ''}
                     onClick={() => {
                       setFilterStatus('available');
-                      showInfo('Showing available listings');
                     }}
                   >
                     Available ({listings.filter(l => l.availability === 'Available').length})
@@ -167,7 +161,6 @@ const MyListings = () => {
                     className={filterStatus === 'pending' ? 'active' : ''}
                     onClick={() => {
                       setFilterStatus('pending');
-                      showInfo('Showing pending listings');
                     }}
                   >
                     Pending ({listings.filter(l => l.availability === 'Pending').length})
@@ -176,7 +169,6 @@ const MyListings = () => {
                     className={filterStatus === 'rented' ? 'active' : ''}
                     onClick={() => {
                       setFilterStatus('rented');
-                      showInfo('Showing rented listings');
                     }}
                   >
                     Rented ({listings.filter(l => l.availability === 'Rented').length})
