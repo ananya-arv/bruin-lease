@@ -100,14 +100,66 @@ const handleAddressBlur = () => {
 };
 
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
+  const handleImageUpload = async (e) => {
+  const files = Array.from(e.target.files);
+  
+  const base64Promises = files.map(file => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 600;
+          let width = img.width;
+          let height = img.height;
+          
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Compress to JPEG with 0.7 quality (reduces size significantly)
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+          resolve({
+            data: compressedBase64,
+            name: file.name
+          });
+        };
+        img.onerror = reject;
+        img.src = event.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  });
 
+  try {
+    const base64Images = await Promise.all(base64Promises);
+    
     setFormData({
       ...formData,
-      images: [...formData.images, ...files.map(f => f.name)]
+      images: [...formData.images, ...base64Images.map(img => img.data)]
     });
-  };
+  } catch (error) {
+    console.error('Error reading images:', error);
+    setError('Failed to upload images');
+  }
+};
 
   const validateForm = () => {
     if (!formData.title.trim()) {
@@ -382,15 +434,47 @@ const handleAddressBlur = () => {
               onChange={handleImageUpload}
             />
             {formData.images.length > 0 && (
-              <div className="uploaded-images">
-                <p>{formData.images.length} image(s) selected</p>
-                <ul>
-                  {formData.images.map((img, idx) => (
-                    <li key={idx}>{img}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                <div className="uploaded-images">
+                    <p>{formData.images.length} image(s) selected</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
+                    {formData.images.map((img, idx) => (
+                        <div key={idx} style={{ position: 'relative' }}>
+                        <img 
+                            src={img} 
+                            alt={`Upload ${idx + 1}`} 
+                            style={{ 
+                            width: '100px', 
+                            height: '100px', 
+                            objectFit: 'cover',
+                            borderRadius: '4px'
+                            }} 
+                        />
+                        <button
+                            type="button"
+                            onClick={() => {
+                            const newImages = formData.images.filter((_, i) => i !== idx);
+                            setFormData({ ...formData, images: newImages });
+                            }}
+                            style={{
+                            position: 'absolute',
+                            top: '-8px',
+                            right: '-8px',
+                            background: 'red',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '24px',
+                            height: '24px',
+                            cursor: 'pointer'
+                            }}
+                        >
+                            ×
+                        </button>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                )}
           </div>
         </div>
 
