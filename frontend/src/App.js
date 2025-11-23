@@ -18,7 +18,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<HomeOrAuth />} />
+        <Route path="/" element={<HomeOrDashboard />} />
+        <Route path="/auth" element={<Login />} />
         
         {/* Guest Accessible Routes */}
         <Route path="/listings" element={<ListingsPage />} />
@@ -62,23 +63,30 @@ function App() {
   );
 }
 
-// Component to decide between HomePage and Login
-function HomeOrAuth() {
-  const { isAuthenticated } = useAuth();
-  const searchParams = new URLSearchParams(window.location.search);
-  const hasAuthParams = searchParams.has('mode');
+// Component to decide between HomePage and Dashboard
+function HomeOrDashboard() {
+  const { isAuthenticated, isGuest, loading } = useAuth();
   
-  // If user is authenticated, redirect to dashboard
-  if (isAuthenticated) {
+  if (loading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontFamily: "'Lexend', sans-serif"
+      }}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+  
+  // If user is authenticated (not guest), redirect to dashboard
+  if (isAuthenticated && !isGuest) {
     return <Navigate to="/dashboard" replace />;
   }
   
-  // If there are auth parameters (login/register), show auth page
-  if (hasAuthParams) {
-    return <Login />;
-  }
-  
-  // Otherwise show homepage
+  // If guest or not authenticated, show homepage
   return <HomePage />;
 }
 
