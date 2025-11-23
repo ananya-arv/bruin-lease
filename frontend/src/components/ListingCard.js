@@ -35,6 +35,15 @@ const ListingCard = ({ listing }) => {
 
       <div className="listing-content">
         <h3 className="listing-title">{listing.title}</h3>
+
+        {listing.reviewCount > 0 && (
+          <div className="card-rating">
+            {renderStars(listing.averageRating)}
+            <span className="card-rating-text">
+              {listing.averageRating.toFixed(1)} ({listing.reviewCount})
+            </span>
+          </div>
+        )}
         
         <p className="listing-address">
           📍 {listing.address}
