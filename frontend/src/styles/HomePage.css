@@ -1,23 +1,56 @@
-/* HomePage Styles */
+/* HomePage Styles - Matching App Aesthetic */
 .homepage {
   min-height: 100vh;
   font-family: 'Lexend', sans-serif;
+  background: #4485c9;
+}
+
+/* Guest Banner */
+.guest-banner {
+  background-color: #fef3c7;
+  color: #92400e;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 500;
+  border-bottom: 1px solid #fde68a;
+  font-family: 'Lexend', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guest-banner button {
+  background-color: #92400e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.guest-banner button:hover {
+  background-color: #78350f;
 }
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #4485c9 0%, #2563eb 100%);
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  background: #b8d4eb;
+  padding: 4rem 2rem;
   text-align: center;
-  color: white;
+  border-radius: 0 0 2rem 2rem;
+  margin: 0 auto 2rem;
+  max-width: 1400px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .logo-section {
@@ -35,26 +68,29 @@
   background: white;
   padding: 0.5rem;
   border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
   margin: 0;
+  color: #111827;
   font-family: 'Lexend', sans-serif;
 }
 
 .hero-subtitle {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
   font-family: 'Lexend', sans-serif;
 }
 
 .hero-description {
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  color: #e8f4ff;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: #374151;
   line-height: 1.6;
   font-family: 'Lexend', sans-serif;
 }
@@ -67,87 +103,88 @@
 }
 
 .cta-button {
-  padding: 1rem 2rem;
+  padding: 0.875rem 2rem;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
   font-family: 'Lexend', sans-serif;
 }
 
 .cta-button.primary {
-  background: white;
-  color: #4485c9;
+  background: #4485c9;
+  color: white;
 }
 
 .cta-button.primary:hover {
+  background: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cta-button.secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
+  background: white;
+  color: #4485c9;
+  border: 2px solid #4485c9;
 }
 
 .cta-button.secondary:hover {
-  background: white;
-  color: #4485c9;
+  background: #4485c9;
+  color: white;
 }
 
 .cta-button.guest {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: #e8f4ff;
+  color: #1f2937;
+  border: 2px solid #94b8d6;
 }
 
 .cta-button.guest:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: white;
+  border-color: #4485c9;
 }
 
 .cta-button.large {
-  padding: 1.25rem 3rem;
-  font-size: 1.25rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
 }
 
 /* Features Section */
 .features-section {
-  padding: 5rem 2rem;
-  background: #f9fafb;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 3rem;
-  color: #111827;
+  margin-bottom: 2.5rem;
+  color: #ffffff;
   font-family: 'Lexend', sans-serif;
 }
 
 .features-grid {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .feature-card {
-  background: white;
+  background: #b8d4eb;
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .feature-icon {
@@ -156,28 +193,35 @@
 }
 
 .feature-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: #111827;
   font-family: 'Lexend', sans-serif;
 }
 
 .feature-card p {
-  color: #6b7280;
+  color: #1f2937;
   line-height: 1.6;
+  font-size: 0.9375rem;
   font-family: 'Lexend', sans-serif;
 }
 
 /* How It Works Section */
 .how-it-works-section {
-  padding: 5rem 2rem;
-  background: white;
+  padding: 3rem 2rem;
+  background: #e8f4ff;
+  border-radius: 2rem;
+  max-width: 1400px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.how-it-works-section .section-title {
+  color: #111827;
 }
 
 .steps-grid {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
@@ -185,7 +229,15 @@
 
 .step-card {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
 }
 
 .step-number {
@@ -199,87 +251,102 @@
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 700;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1rem;
   font-family: 'Lexend', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .step-card h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   color: #111827;
   font-family: 'Lexend', sans-serif;
 }
 
 .step-card p {
-  color: #6b7280;
+  color: #4b5563;
   line-height: 1.6;
+  font-size: 0.9375rem;
   font-family: 'Lexend', sans-serif;
 }
 
 /* Stats Section */
 .stats-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #4485c9, #2563eb);
-  color: white;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 2rem auto;
 }
 
 .stats-grid {
-  max-width: 1000px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .stat-card {
   text-align: center;
+  background: #b8d4eb;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
 }
 
 .stat-card h3 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: #4485c9;
   font-family: 'Lexend', sans-serif;
 }
 
 .stat-card p {
-  font-size: 1.125rem;
-  color: #e8f4ff;
+  font-size: 1rem;
+  color: #1f2937;
   font-family: 'Lexend', sans-serif;
 }
 
 /* CTA Section */
 .cta-section {
-  padding: 5rem 2rem;
-  background: #f9fafb;
+  padding: 3rem 2rem;
+  background: #b8d4eb;
+  border-radius: 2rem;
   text-align: center;
+  max-width: 1400px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .cta-section h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: #111827;
   font-family: 'Lexend', sans-serif;
 }
 
 .cta-section p {
-  font-size: 1.25rem;
-  color: #6b7280;
+  font-size: 1.125rem;
+  color: #1f2937;
   margin-bottom: 2rem;
   font-family: 'Lexend', sans-serif;
 }
 
 /* Footer */
 .footer {
-  background: #111827;
+  background: #1f2937;
   color: white;
-  padding: 3rem 2rem 1rem;
+  padding: 3rem 2rem 1.5rem;
+  margin-top: 3rem;
 }
 
 .footer-content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -288,46 +355,57 @@
 }
 
 .footer-section h4 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: #ffffff;
   font-family: 'Lexend', sans-serif;
 }
 
 .footer-section p {
-  color: #9ca3af;
+  color: #d1d5db;
   margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
   font-family: 'Lexend', sans-serif;
 }
 
 .footer-section a {
   display: block;
-  color: #9ca3af;
+  color: #d1d5db;
   text-decoration: none;
   margin-bottom: 0.5rem;
   transition: color 0.2s;
+  font-size: 0.9375rem;
   font-family: 'Lexend', sans-serif;
 }
 
 .footer-section a:hover {
-  color: white;
+  color: #ffffff;
 }
 
 .footer-bottom {
   text-align: center;
   padding-top: 2rem;
   border-top: 1px solid #374151;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .footer-bottom p {
   color: #9ca3af;
+  font-size: 0.875rem;
   font-family: 'Lexend', sans-serif;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+  }
+
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-subtitle {
@@ -339,7 +417,7 @@
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .hero-buttons {
@@ -353,20 +431,36 @@
   .logo-section {
     flex-direction: column;
   }
+
+  .features-section,
+  .how-it-works-section,
+  .stats-section,
+  .cta-section {
+    padding: 2rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-section {
-    min-height: 100vh;
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
 
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .hero-logo {
     width: 60px;
     height: 60px;
+  }
+
+  .stat-card h3 {
+    font-size: 2rem;
+  }
+
+  .features-grid,
+  .steps-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 }
