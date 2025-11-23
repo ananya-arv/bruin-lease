@@ -278,6 +278,30 @@
 
 .listing-card-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.listing-card-wrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Remove conflicting styles from listing card when in wrapper */
+.listing-card-wrapper .listing-card {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+.listing-card-wrapper .listing-card:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 /* Listing Actions */
@@ -286,10 +310,9 @@
   gap: 0.5rem;
   padding: 0.75rem;
   background: white;
-  border-radius: 0 0 1rem 1rem;
-  margin-top: -1rem;
   border-top: 1px solid #e5e7eb;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .listing-actions button {
@@ -322,6 +345,35 @@
   background-color: #fecaca;
 }
 
+/* Rating Display */
+.listing-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.rating-stars .star {
+  font-size: 1.25rem;
+  color: #d1d5db;
+}
+
+.rating-stars .star.filled {
+  color: #fbbf24;
+}
+
+.rating-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .my-listings-header {
@@ -347,6 +399,14 @@
   .listings-grid {
     grid-template-columns: 1fr;
   }
+
+  .listing-rating {
+    margin-top: 0.75rem;
+  }
+  
+  .rating-stars .star {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -364,42 +424,5 @@
 
   .edit-form-container {
     padding: 1.5rem;
-  }
-}
-
-.listing-rating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.rating-stars {
-  display: flex;
-  gap: 0.125rem;
-}
-
-.rating-stars .star {
-  font-size: 1.25rem;
-  color: #d1d5db;
-}
-
-.rating-stars .star.filled {
-  color: #fbbf24;
-}
-
-.rating-text {
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .listing-rating {
-    margin-top: 0.75rem;
-  }
-  
-  .rating-stars .star {
-    font-size: 1rem;
   }
 }
