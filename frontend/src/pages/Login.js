@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import './index.css'; 
 
 export default function AuthenticationUI() {
   const [searchParams] = useSearchParams();
   const successMessage = searchParams.get('message');
   const modeParam = searchParams.get('mode');
+  const { showSuccess, showError, showInfo } = useToast();
   
   const [isLogin, setIsLogin] = useState(modeParam !== 'register');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +31,12 @@ export default function AuthenticationUI() {
       setIsLogin(true);
     }
   }, [modeParam]);
+
+  useEffect(() => {
+    if (successMessage) {
+      showSuccess(successMessage);
+    }
+  }, [successMessage, showSuccess]);
 
   const validateEmail = (email) => {
     const uclaEmailRegex = /^[a-zA-Z0-9._%+-]+@ucla\.edu$/;
@@ -70,6 +78,7 @@ export default function AuthenticationUI() {
     e.preventDefault();
     
     if (!validateForm()) {
+      showError('Please fix the errors in the form');
       return;
     }
 
@@ -83,20 +92,29 @@ export default function AuthenticationUI() {
           email: formData.email,
           password: formData.password
         });
+        
+        if (result.success) {
+          showSuccess('Successfully logged in! Welcome back.');
+          navigate('/dashboard');
+        } else {
+          showError(result.error || 'Login failed');
+        }
       } else {
         result = await register({
           name: formData.name,
           email: formData.email,
           password: formData.password
         });
-      }
-      if (result.success) {
-        navigate('/dashboard');
-      } else {
-        alert(result.error || 'An error occurred');
+        
+        if (result.success) {
+          showSuccess('Account created successfully! Welcome to BruinLease.');
+          navigate('/dashboard');
+        } else {
+          showError(result.error || 'Registration failed');
+        }
       }
     } catch (error) {
-      alert(error.response?.data?.message || 'An unexpected error occurred');
+      showError(error.response?.data?.message || 'An unexpected error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -150,32 +168,6 @@ export default function AuthenticationUI() {
               {isLogin ? 'Sign in to find your perfect home' : 'Join the Bruin housing community'}
             </p>
           </div>
-
-          {successMessage && (
-            <div style={{
-              backgroundColor: '#d4edda',
-              color: '#155724',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              marginBottom: '16px',
-              border: '1px solid #c3e6cb'
-            }}>
-              {successMessage}
-            </div>
-          )}
-
-          {errors.general && (
-            <div style={{
-              backgroundColor: '#f8d7da',
-              color: '#721c24',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              marginBottom: '16px',
-              border: '1px solid #f5c6cb'
-            }}>
-              {errors.general}
-            </div>
-          )}
 
           <form className="auth-form" onSubmit={handleSubmit}>
             {!isLogin && (
@@ -322,6 +314,7 @@ export default function AuthenticationUI() {
                 type="button"
                 onClick={() => {
                   continueAsGuest();
+                  showInfo('Browsing as guest. Sign in to access all features.');
                   navigate('/listings');
                 }}
                 className="switch-mode-btn"

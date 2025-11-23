@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import { messageAPI } from '../services/api';
 import Navbar from '../components/Navbar';
 import '../styles/Messages.css';
 
 const Messages = () => {
   const { user } = useAuth();
+  const { showSuccess, showError, showInfo } = useToast();
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -38,8 +40,15 @@ const Messages = () => {
       setLoading(true);
       const response = await messageAPI.getAllConversations();
       setConversations(response.data.data);
+      
+      if (response.data.data.length > 0) {
+        showInfo(`${response.data.data.length} conversation(s) loaded`);
+      } else {
+        showInfo('No conversations yet');
+      }
     } catch (error) {
       console.error('Error fetching conversations:', error);
+      showError('Failed to load conversations');
     } finally {
       setLoading(false);
     }
@@ -51,12 +60,17 @@ const Messages = () => {
       setMessages(response.data.data);
     } catch (error) {
       console.error('Error fetching conversation:', error);
+      showError('Failed to load messages');
     }
   };
 
   const markConversationAsRead = async (userId) => {
     try {
-      await messageAPI.markAsRead(userId);
+      const response = await messageAPI.markAsRead(userId);
+      if (response.data.data.modifiedCount > 0) {
+        showSuccess(`${response.data.data.modifiedCount} message(s) marked as read`);
+      }
+      
       setConversations(convs =>
         convs.map(conv =>
           conv.partner._id === userId
@@ -66,6 +80,7 @@ const Messages = () => {
       );
     } catch (error) {
       console.error('Error marking as read:', error);
+      // Silent fail for marking as read
     }
   };
 
@@ -85,10 +100,11 @@ const Messages = () => {
       setMessages([...messages, response.data.data]);
       setNewMessage('');
       
+      showSuccess('Message sent successfully!');
       fetchConversations();
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message');
+      showError(error.response?.data?.message || 'Failed to send message');
     } finally {
       setSending(false);
     }
@@ -131,7 +147,7 @@ const Messages = () => {
       <Navbar />
       <div className="messages-page">
         <div className="messages-container">
-          {/* Conversations List - Always Visible */}
+          {/* Conversations List */}
           <div className="conversations-sidebar">
             <div className="conversations-header">
               <h2>Messages</h2>
@@ -153,7 +169,10 @@ const Messages = () => {
                     className={`conversation-item ${
                       selectedConversation?.partner._id === conv.partner._id ? 'active' : ''
                     }`}
-                    onClick={() => setSelectedConversation(conv)}
+                    onClick={() => {
+                      setSelectedConversation(conv);
+                      showInfo(`Opened conversation with ${conv.partner.name}`);
+                    }}
                   >
                     <div className="conversation-avatar">
                       {conv.partner.name.charAt(0).toUpperCase()}

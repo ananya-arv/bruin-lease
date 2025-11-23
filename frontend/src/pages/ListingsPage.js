@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { listingAPI } from '../services/api';
+import { useToast } from '../context/ToastContext';
 import ListingCard from '../components/ListingCard';
 import Navbar from '../components/Navbar';
 import '../styles/ListingsPage.css';
 
 const ListingsPage = () => {
+  const { showSuccess, showError, showInfo } = useToast();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     minPrice: '',
@@ -26,9 +27,8 @@ const ListingsPage = () => {
       setLoading(true);
       const response = await listingAPI.getAllListings();
       setListings(response.data.data);
-      setError(null);
     } catch (err) {
-      setError('Failed to load listings');
+      showError('Failed to load listings');
       console.error(err);
     } finally {
       setLoading(false);
@@ -62,7 +62,6 @@ const ListingsPage = () => {
       !filters.minRating || 
       (listing.averageRating >= Number(filters.minRating) && listing.reviewCount > 0);
 
-
     return matchesSearch && matchesPrice && matchesBedrooms && matchesDistance && matchesRating;
   });
 
@@ -71,10 +70,29 @@ const ListingsPage = () => {
       minPrice: '',
       maxPrice: '',
       bedrooms: '',
-      maxDistance: ''
+      maxDistance: '',
+      minRating: ''
     });
     setSearchTerm('');
+    showSuccess('Filters cleared');
   };
+
+  const applyFilters = () => {
+    const activeFilters = Object.entries(filters).filter(([key, value]) => value !== '').length;
+    const hasSearch = searchTerm.trim() !== '';
+    
+    if (activeFilters > 0 || hasSearch) {
+      showInfo(`Showing ${filteredListings.length} filtered listing(s)`);
+    } else {
+      showInfo(`Showing all ${listings.length} listing(s)`);
+    }
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      applyFilters();
+    }
+  }, [filters, searchTerm, listings.length]);
 
   if (loading) {
     return (
@@ -82,17 +100,6 @@ const ListingsPage = () => {
         <Navbar />
         <div className="listings-page">
           <div className="loading">Loading listings...</div>
-        </div>
-      </>
-    );
-  }
-
-  if (error) {
-    return (
-      <>
-        <Navbar />
-        <div className="listings-page">
-          <div className="error">{error}</div>
         </div>
       </>
     );
