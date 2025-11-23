@@ -481,3 +481,40 @@
     gap: 0.5rem;
   }
 }
+
+.listing-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.rating-stars .star {
+  font-size: 1.25rem;
+  color: #d1d5db;
+}
+
+.rating-stars .star.filled {
+  color: #fbbf24;
+}
+
+.rating-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .listing-rating {
+    margin-top: 0.75rem;
+  }
+  
+  .rating-stars .star {
+    font-size: 1rem;
+  }
+}

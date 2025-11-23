@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { listingAPI } from '../services/api';
 import MessageSellerButton from '../components/MessageSellerButton';
+import Reviews from '../components/Reviews';
 import { useAuth } from '../context/AuthContext';
 import '../styles/ListingDetail.css';
 
@@ -172,6 +173,12 @@ const ListingDetail = () => {
             )}
           </div>
         </div>
+
+        {/* Reviews Section */}
+        <Reviews 
+          listingId={listing._id} 
+          listingOwnerId={listing.owner?._id || listing.owner}
+        />
       </div>
     </div>
   );
