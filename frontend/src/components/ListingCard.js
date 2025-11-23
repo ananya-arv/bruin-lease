@@ -18,6 +18,18 @@ const ListingCard = ({ listing }) => {
     }).format(price);
   };
 
+  const renderStars = (rating) => {
+    return (
+      <div className="card-rating-stars">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className={`star ${star <= Math.round(rating) ? 'filled' : ''}`}>
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="listing-card" onClick={() => navigate(`/listings/${listing._id}`)}>
       <div className="listing-image">
