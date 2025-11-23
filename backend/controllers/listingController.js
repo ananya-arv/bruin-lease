@@ -55,6 +55,7 @@ const createListing = async (req, res) => {
       price,
       address,
       zipCode,
+      country,
       bedrooms,
       distanceFromUCLA,
       leaseDuration,
@@ -62,7 +63,7 @@ const createListing = async (req, res) => {
       images
     } = req.body;
 
-    if (!title || price === undefined || !address || !zipCode || bedrooms === undefined || distanceFromUCLA === undefined || !leaseDuration || !description) {
+    if (!title || price === undefined || !address || !zipCode || !country ||bedrooms === undefined || distanceFromUCLA === undefined || !leaseDuration || !description) {
       return res.status(400).json({
         status: 'error',
         message: 'Please provide all required fields'
@@ -74,6 +75,8 @@ const createListing = async (req, res) => {
       title,
       price,
       address,
+      zipCode,
+      country,      
       bedrooms,
       distanceFromUCLA,
       leaseDuration,
