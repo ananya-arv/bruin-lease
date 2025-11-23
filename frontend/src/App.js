@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import CreateListing from './pages/CreateListing';
 import ListingsPage from './pages/ListingsPage';
 import MyListings from './pages/MyListings';
+import Messages from './pages/Messages'; 
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
