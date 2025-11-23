@@ -17,10 +17,21 @@ const Navbar = () => {
     // If guest tries to access protected routes, redirect to sign in
     if (isGuest && (path === '/dashboard' || path === '/my-listings' || path === '/create-listing' || path === '/messages')) {
       alert('Please sign in with a UCLA account to access this feature');
-      navigate('/?mode=login');
+      navigate('/auth?mode=login');
       return;
     }
     navigate(path);
+  };
+
+  const handleBrandClick = () => {
+    // Logo always goes to home
+    if (user && !isGuest) {
+      // Authenticated users can go to dashboard from navbar links
+      navigate('/');
+    } else {
+      // Guests and non-authenticated go to home
+      navigate('/');
+    }
   };
 
   // Define nav items - only show certain items for guests
@@ -47,7 +58,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div 
           className="navbar-brand" 
-          onClick={() => navigate(isGuest ? '/listings' : '/dashboard')}
+          onClick={handleBrandClick}
         >
           <img src="/BruinLease_logo.png" alt="BruinLease" className="navbar-logo" />
           <span className="navbar-title">BruinLease</span>
@@ -83,13 +94,13 @@ const Navbar = () => {
           {isGuest && (
             <>
               <span className="guest-badge">Guest Mode</span>
-              <button className="login-btn" onClick={() => navigate('/?mode=login')}>
+              <button className="login-btn" onClick={() => navigate('/auth?mode=login')}>
                 Sign In
               </button>
             </>
           )}
           {!user && !isGuest && (
-            <button className="login-btn" onClick={() => navigate('/?mode=login')}>
+            <button className="login-btn" onClick={() => navigate('/auth?mode=login')}>
               Sign In
             </button>
           )}

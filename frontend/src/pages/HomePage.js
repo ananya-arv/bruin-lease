@@ -1,12 +1,72 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { continueAsGuest, isGuest, logout } = useAuth();
+
+  const handleGetStarted = () => {
+    navigate('/auth?mode=register');
+  };
+
+  const handleSignIn = () => {
+    navigate('/auth?mode=login');
+  };
+
+  const handleBrowseAsGuest = () => {
+    if (isGuest) {
+      // Already a guest, just navigate to listings
+      navigate('/listings');
+    } else {
+      // Set guest mode and navigate
+      continueAsGuest();
+      navigate('/listings');
+    }
+  };
+
+  const handleExitGuestMode = () => {
+    logout();
+    // Page will refresh and show homepage
+  };
 
   return (
     <div className="homepage">
+      {/* Guest Mode Banner */}
+      {isGuest && (
+        <div style={{
+          backgroundColor: '#fef3c7',
+          color: '#92400e',
+          padding: '1rem 2rem',
+          textAlign: 'center',
+          fontWeight: 500,
+          borderBottom: '1px solid #fde68a',
+          fontFamily: "'Lexend', sans-serif",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem'
+        }}>
+          <span>👀 You're browsing as a guest</span>
+          <button
+            onClick={handleExitGuestMode}
+            style={{
+              backgroundColor: '#92400e',
+              color: 'white',
+              border: 'none',
+              padding: '0.5rem 1rem',
+              borderRadius: '0.375rem',
+              cursor: 'pointer',
+              fontWeight: 500,
+              fontSize: '0.875rem',
+              fontFamily: "'Lexend', sans-serif"
+            }}
+          >
+            Exit Guest Mode
+          </button>
+        </div>
+      )}
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
@@ -19,13 +79,13 @@ const HomePage = () => {
             Find your perfect home near campus. Connect with verified UCLA students and discover trusted housing options.
           </p>
           <div className="hero-buttons">
-            <button className="cta-button primary" onClick={() => navigate('/?mode=register')}>
+            <button className="cta-button primary" onClick={handleGetStarted}>
               Get Started
             </button>
-            <button className="cta-button secondary" onClick={() => navigate('/?mode=login')}>
+            <button className="cta-button secondary" onClick={handleSignIn}>
               Sign In
             </button>
-            <button className="cta-button guest" onClick={() => navigate('/listings')}>
+            <button className="cta-button guest" onClick={handleBrowseAsGuest}>
               Browse as Guest
             </button>
           </div>
@@ -108,7 +168,7 @@ const HomePage = () => {
       <div className="cta-section">
         <h2>Ready to Find Your Home?</h2>
         <p>Join thousands of UCLA students who found housing through BruinLease</p>
-        <button className="cta-button primary large" onClick={() => navigate('/?mode=register')}>
+        <button className="cta-button primary large" onClick={handleGetStarted}>
           Sign Up Now
         </button>
       </div>
@@ -122,9 +182,9 @@ const HomePage = () => {
           </div>
           <div className="footer-section">
             <h4>Quick Links</h4>
-            <a href="/listings">Browse Listings</a>
-            <a href="/?mode=login">Sign In</a>
-            <a href="/?mode=register">Sign Up</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); handleBrowseAsGuest(); }}>Browse Listings</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); handleSignIn(); }}>Sign In</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); handleGetStarted(); }}>Sign Up</a>
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
