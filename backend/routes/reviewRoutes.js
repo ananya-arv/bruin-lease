@@ -7,10 +7,11 @@ const {
 } = require('../controllers/reviewController');
 const { protect } = require('../middleware/auth');
 
-router.route('/')
-  .get(getReviews)
-  .post(protect, createReview);
+// PUBLIC route - anyone can view reviews
+router.get('/', getReviews);
 
+// PROTECTED routes - require authentication
+router.post('/', protect, createReview);
 router.get('/my-review', protect, getMyReview);
 
 module.exports = router;

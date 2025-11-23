@@ -10,20 +10,18 @@ const {
 } = require('../controllers/listingController');
 const { protect } = require('../middleware/auth');
 
-// All listing routes require authentication
-router.use(protect);
+// PUBLIC routes - no authentication required
+router.get('/', getAllListings);  // Browse all listings - public
 
-// Get my listings (must be before /:id route)
-router.get('/my-listings', getMyListings);
+// PROTECTED routes - require authentication (must come before /:id)
+router.get('/my-listings', protect, getMyListings); // Get my listings
+router.post('/', protect, createListing);           // Create listing
 
-// Main listing routes
-router.route('/')
-  .get(getAllListings)
-  .post(createListing);
+// PUBLIC route for single listing (must come after /my-listings)
+router.get('/:id', getListing);   // View single listing - public
 
-router.route('/:id')
-  .get(getListing)
-  .put(updateListing)
-  .delete(deleteListing);
+// PROTECTED routes for specific listings
+router.put('/:id', protect, updateListing);         // Update listing
+router.delete('/:id', protect, deleteListing);      // Delete listing
 
 module.exports = router;
