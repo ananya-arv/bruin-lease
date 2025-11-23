@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // check if the user is logged in on the comp.
   useEffect(() => {
     const token = localStorage.getItem('token');
     const guestMode = localStorage.getItem('guestMode');
@@ -54,10 +53,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setError(null);
-      console.log('Registering with data:', userData);
       const response = await authAPI.register(userData);
-      console.log('Register response:', response);
-
       const { token, ...userInfo } = response.data.data;
       
       localStorage.setItem('token', token);
@@ -66,8 +62,9 @@ export const AuthProvider = ({ children }) => {
       setIsGuest(false);
       return { success: true };
     } catch (err) {
-      console.log('Register error:', err);
-      console.log('Error response:', err.response);
+      const errorMessage = err.response?.data?.message || 'Registration failed';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
     }
   };
 
