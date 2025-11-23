@@ -40,4 +40,14 @@ export const listingAPI = {
   getMyListings: () => api.get('/listings/my-listings')
 };
 
+// Message API calls
+export const messageAPI = {
+  sendMessage: (messageData) => api.post('/messages', messageData),
+  getConversation: (userId) => api.get(`/messages/conversation/${userId}`),
+  getAllConversations: () => api.get('/messages/conversations'),
+  markAsRead: (userId) => api.put(`/messages/read/${userId}`),
+  getUnreadCount: () => api.get('/messages/unread/count'),
+  deleteMessage: (id) => api.delete(`/messages/${id}`)
+};
+
 export default api;
