@@ -58,23 +58,23 @@ const ListingCard = ({ listing }) => {
         )}
         
         <p className="listing-address">
-          📍 {listing.address}
+           {listing.address}
         </p>
 
         <div className="listing-details">
           <div className="detail-item">
-            <span className="detail-icon">🛏️</span>
+            <span className="detail-icon"></span>
             <span>{listing.bedrooms} {listing.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}</span>
           </div>
           
           <div className="detail-item">
-            <span className="detail-icon">📏</span>
+            <span className="detail-icon"></span>
             <span>{listing.distanceFromUCLA} mi from UCLA</span>
           </div>
         </div>
 
         <div className="listing-lease">
-          <span className="detail-icon">📅</span>
+          <span className="detail-icon"></span>
           <span>{listing.leaseDuration}</span>
         </div>
 

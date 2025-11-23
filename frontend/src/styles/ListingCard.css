@@ -97,6 +97,16 @@
   justify-content: center;
 }
 
+.listing-address::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%234485c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>') no-repeat center;
+  background-size: contain;
+  flex-shrink: 0;
+}
+
 .listing-details {
   display: flex;
   gap: 1rem;
@@ -117,6 +127,26 @@
   font-size: 1rem;
 }
 
+/* Bedroom Icon */
+.detail-item:first-child .detail-icon::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%234b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6h18V9"></path><path d="M2 19h20"></path><path d="M3 19v-2"></path><path d="M21 19v-2"></path><rect x="4" y="4" width="16" height="5" rx="1"></rect></svg>') no-repeat center;
+  background-size: contain;
+}
+
+/* Distance Icon */
+.detail-item:last-child .detail-icon::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%234b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 9 4-18 3 9h4"></path></svg>') no-repeat center;
+  background-size: contain;
+}
+
 .listing-lease {
   display: flex;
   align-items: center;
@@ -125,6 +155,16 @@
   font-size: 0.875rem;
   margin-bottom: 1rem;
   justify-content: center;
+}
+
+.listing-lease::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%234b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>') no-repeat center;
+  background-size: contain;
+  flex-shrink: 0;
 }
 
 .listing-description {
