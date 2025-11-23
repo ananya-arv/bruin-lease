@@ -61,7 +61,7 @@ const createListing = async (req, res) => {
       images
     } = req.body;
 
-    if (!title || !price || !address || !bedrooms || !distanceFromUCLA || !leaseDuration || !description) {
+    if (!title || price === undefined || !address || bedrooms === undefined || distanceFromUCLA === undefined || !leaseDuration || !description) {
       return res.status(400).json({
         status: 'error',
         message: 'Please provide all required fields'
