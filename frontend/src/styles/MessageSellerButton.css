@@ -2,7 +2,7 @@
   background-color: #10b981;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   border-radius: 0.5rem;
   font-weight: 600;
   cursor: pointer;
@@ -11,6 +11,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .message-seller-btn:hover {
@@ -55,6 +56,7 @@
   font-weight: 600;
   color: #111827;
   margin: 0;
+  font-family: 'Lexend', sans-serif;
 }
 
 .close-modal-btn {
@@ -71,6 +73,7 @@
   justify-content: center;
   border-radius: 0.25rem;
   transition: background-color 0.2s;
+  font-family: 'Lexend', sans-serif;
 }
 
 .close-modal-btn:hover {
@@ -85,11 +88,11 @@
 }
 
 .listing-preview {
-  background-color: #f9fafb;
+  background-color: #e8f4ff;
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #bfdbfe;
 }
 
 .listing-preview strong {
@@ -97,16 +100,18 @@
   color: #111827;
   display: block;
   margin-bottom: 0.5rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .listing-preview p {
   color: #6b7280;
   font-size: 0.875rem;
   margin: 0.25rem 0;
+  font-family: 'Lexend', sans-serif;
 }
 
 .listing-price {
-  color: #2563eb !important;
+  color: #4485c9 !important;
   font-weight: 600;
   font-size: 1rem !important;
   margin-top: 0.5rem !important;
@@ -122,6 +127,7 @@
   font-weight: 500;
   color: #374151;
   font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .message-form textarea {
@@ -130,15 +136,15 @@
   border: 2px solid #e5e7eb;
   border-radius: 0.5rem;
   font-size: 1rem;
-  font-family: inherit;
+  font-family: 'Lexend', sans-serif;
   resize: vertical;
   transition: border-color 0.2s;
 }
 
 .message-form textarea:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #4485c9;
+  box-shadow: 0 0 0 3px rgba(68, 133, 201, 0.1);
 }
 
 .message-form textarea:disabled {
@@ -151,6 +157,7 @@
   color: #9ca3af;
   text-align: right;
   margin: 0;
+  font-family: 'Lexend', sans-serif;
 }
 
 .message-modal-footer {
@@ -170,6 +177,7 @@
   transition: all 0.2s;
   border: none;
   font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .cancel-btn {
@@ -182,12 +190,12 @@
 }
 
 .send-btn {
-  background-color: #2563eb;
+  background-color: #4485c9;
   color: white;
 }
 
 .send-btn:hover:not(:disabled) {
-  background-color: #1d4ed8;
+  background-color: #2563eb;
 }
 
 .cancel-btn:disabled,
