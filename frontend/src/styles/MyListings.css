@@ -25,7 +25,7 @@
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  background: white;
+  background: #b8d4eb;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -38,12 +38,14 @@
   color: #111827;
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 .my-listings-header p {
-  color: #6b7280;
+  color: #1f2937;
   font-size: 1rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 .create-new-btn {
@@ -72,11 +74,12 @@
   margin-bottom: 1.5rem;
   border: 1px solid #fecaca;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Empty State */
 .empty-state {
-  background: white;
+  background: #b8d4eb;
   border-radius: 1rem;
   padding: 4rem 2rem;
   text-align: center;
@@ -93,12 +96,14 @@
   font-weight: bold;
   color: #111827;
   margin-bottom: 0.5rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .empty-state p {
-  color: #6b7280;
+  color: #1f2937;
   margin-bottom: 2rem;
   font-size: 1rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .create-first-btn {
@@ -120,7 +125,7 @@
 
 /* Filter Bar */
 .filter-bar {
-  background: white;
+  background: #b8d4eb;
   border-radius: 1rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -136,12 +141,12 @@
 
 .filter-tabs button {
   padding: 0.5rem 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #94b8d6;
   background: white;
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: 500;
-  color: #4b5563;
+  color: #1f2937;
   transition: all 0.2s;
   font-family: 'Lexend', sans-serif;
 }
@@ -157,172 +162,21 @@
   border-color: #4485c9;
 }
 
-/* Listings List */
-.listings-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Listing Item */
-.listing-item {
-  background: white;
+/* Edit Form Container */
+.edit-form-container {
+  background: #b8d4eb;
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.listing-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.listing-main {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.listing-image-placeholder {
-  width: 120px;
-  height: 120px;
-  background: #e8f4ff;
-  border-radius: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  flex-shrink: 0;
-}
-
-.listing-info {
-  flex: 1;
-}
-
-.listing-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  margin-bottom: 0.5rem;
-  gap: 1rem;
-}
-
-.listing-info h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
+.edit-form-container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
   color: #111827;
-  margin: 0;
-}
-
-.status-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.status-badge.available {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
-.status-badge.pending {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.status-badge.rented {
-  background-color: #e5e7eb;
-  color: #374151;
-}
-
-.listing-address {
-  color: #6b7280;
-  margin-bottom: 0.75rem;
-  font-size: 0.875rem;
-}
-
-.listing-details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.detail-item {
-  color: #4b5563;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.listing-description {
-  color: #4b5563;
-  line-height: 1.6;
-  margin-bottom: 0.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.listing-date {
-  color: #9ca3af;
-  font-size: 0.75rem;
-}
-
-/* Listing Actions */
-.listing-actions {
-  display: flex;
-  gap: 0.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-  justify-content: center;
-}
-
-.listing-actions button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
   font-family: 'Lexend', sans-serif;
-}
-
-.view-btn {
-  background-color: #4485c9;
-  color: #ffffff;
-}
-
-.view-btn:hover {
-  background-color: #2563eb;
-}
-
-.edit-btn {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.edit-btn:hover {
-  background-color: #fde68a;
-}
-
-.delete-btn {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.delete-btn:hover {
-  background-color: #fecaca;
-}
-
-/* Edit Form */
-.edit-form {
-  border-top: 2px solid #e5e7eb;
-  padding-top: 1.5rem;
 }
 
 .edit-form-grid {
@@ -344,19 +198,21 @@
 .form-group label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: #1f2937;
   margin-bottom: 0.5rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #94b8d6;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   transition: border-color 0.2s;
   font-family: 'Lexend', sans-serif;
+  background: white;
 }
 
 .form-group input:focus,
@@ -377,6 +233,8 @@
   display: flex;
   gap: 0.75rem;
   justify-content: center;
+  padding-top: 1rem;
+  border-top: 1px solid #94b8d6;
 }
 
 .save-btn {
@@ -411,6 +269,59 @@
   background-color: #4b5563;
 }
 
+/* Listings Grid */
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.listing-card-wrapper {
+  position: relative;
+}
+
+/* Listing Actions */
+.listing-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 0 0 1rem 1rem;
+  margin-top: -1rem;
+  border-top: 1px solid #e5e7eb;
+  justify-content: center;
+}
+
+.listing-actions button {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.edit-btn {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.edit-btn:hover {
+  background-color: #fde68a;
+}
+
+.delete-btn {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.delete-btn:hover {
+  background-color: #fecaca;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .my-listings-header {
@@ -419,30 +330,6 @@
 
   .create-new-btn {
     width: 100%;
-  }
-
-  .listing-main {
-    flex-direction: column;
-  }
-
-  .listing-image-placeholder {
-    width: 100%;
-    height: 150px;
-  }
-
-  .listing-title-row {
-    flex-direction: column;
-    align-items: start;
-    gap: 0.5rem;
-  }
-
-  .listing-actions {
-    flex-wrap: wrap;
-  }
-
-  .listing-actions button {
-    flex: 1;
-    min-width: 120px;
   }
 
   .edit-form-grid {
@@ -455,6 +342,10 @@
 
   .filter-tabs button {
     width: 100%;
+  }
+
+  .listings-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -471,12 +362,7 @@
     font-size: 1.5rem;
   }
 
-  .listing-item {
-    padding: 1rem;
-  }
-
-  .listing-details {
-    flex-direction: column;
-    gap: 0.5rem;
+  .edit-form-container {
+    padding: 1.5rem;
   }
 }

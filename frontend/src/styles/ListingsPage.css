@@ -10,12 +10,13 @@
   text-align: center;
   padding: 3rem;
   font-size: 1.25rem;
-  color: #ffffff;
+  color: #111827;
   max-width: 1200px;
   margin: 0 auto;
-  background: white;
+  background: #b8d4eb;
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-family: 'Lexend', sans-serif;
 }
 
 .error {
@@ -37,19 +38,21 @@
   color: #ffffff;
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 .listings-header p {
   color: #e8f4ff;
   font-size: 1.125rem;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Search and Filter Section */
 .search-filter-section {
   max-width: 1200px;
   margin: 0 auto 2rem;
-  background: white;
+  background: #b8d4eb;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -62,7 +65,7 @@
 .search-bar input {
   width: 100%;
   padding: 1rem 1.25rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #94b8d6;
   border-radius: 0.75rem;
   font-size: 1rem;
   transition: all 0.2s;
@@ -76,7 +79,8 @@
 }
 
 .search-bar input::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
+  font-family: 'Lexend', sans-serif;
 }
 
 /* Filters */
@@ -96,13 +100,14 @@
 .filter-group label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: #1f2937;
+  font-family: 'Lexend', sans-serif;
 }
 
 .filter-group input,
 .filter-group select {
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #94b8d6;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   transition: all 0.2s;
@@ -146,20 +151,22 @@
   margin-bottom: 1.5rem;
   font-weight: 500;
   text-align: center;
+  font-family: 'Lexend', sans-serif;
 }
 
 .no-listings {
   text-align: center;
   padding: 3rem;
-  background: white;
+  background: #b8d4eb;
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .no-listings p {
-  color: #6b7280;
+  color: #1f2937;
   font-size: 1.125rem;
   margin-bottom: 1.5rem;
+  font-family: 'Lexend', sans-serif;
 }
 
 .no-listings button {
