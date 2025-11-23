@@ -13,18 +13,42 @@ const Navbar = () => {
     navigate('/');
   };
 
-  const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: '🏠' },
-    { path: '/listings', label: 'Browse Listings', icon: '🔍' },
-    { path: '/my-listings', label: 'My Listings', icon: '📋' },
-    { path: '/create-listing', label: 'Create Listing', icon: '➕' },
-    { path: '/messages', label: 'Messages', icon: '💬' },
-  ];
+  const handleNavClick = (path) => {
+    // If guest tries to access protected routes, redirect to sign in
+    if (isGuest && (path === '/dashboard' || path === '/my-listings' || path === '/create-listing' || path === '/messages')) {
+      alert('Please sign in with a UCLA account to access this feature');
+      navigate('/?mode=login');
+      return;
+    }
+    navigate(path);
+  };
+
+  // Define nav items - only show certain items for guests
+  const getNavItems = () => {
+    if (isGuest) {
+      return [
+        { path: '/listings', label: 'Browse Listings', icon: '🔍' },
+      ];
+    }
+    
+    return [
+      { path: '/dashboard', label: 'Dashboard', icon: '🏠' },
+      { path: '/listings', label: 'Browse Listings', icon: '🔍' },
+      { path: '/my-listings', label: 'My Listings', icon: '📋' },
+      { path: '/create-listing', label: 'Create Listing', icon: '➕' },
+      { path: '/messages', label: 'Messages', icon: '💬' },
+    ];
+  };
+
+  const navItems = getNavItems();
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-brand" onClick={() => navigate('/dashboard')}>
+        <div 
+          className="navbar-brand" 
+          onClick={() => navigate(isGuest ? '/listings' : '/dashboard')}
+        >
           <img src="/BruinLease_logo.png" alt="BruinLease" className="navbar-logo" />
           <span className="navbar-title">BruinLease</span>
         </div>
@@ -34,7 +58,7 @@ const Navbar = () => {
             <button
               key={item.path}
               className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
-              onClick={() => navigate(item.path)}
+              onClick={() => handleNavClick(item.path)}
             >
               <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
@@ -57,7 +81,15 @@ const Navbar = () => {
             </>
           )}
           {isGuest && (
-            <button className="login-btn" onClick={() => navigate('/')}>
+            <>
+              <span className="guest-badge">Guest Mode</span>
+              <button className="login-btn" onClick={() => navigate('/?mode=login')}>
+                Sign In
+              </button>
+            </>
+          )}
+          {!user && !isGuest && (
+            <button className="login-btn" onClick={() => navigate('/?mode=login')}>
               Sign In
             </button>
           )}

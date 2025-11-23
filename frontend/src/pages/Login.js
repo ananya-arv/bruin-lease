@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './index.css'; 
 
 export default function AuthenticationUI() {
-  const successMessage = new URLSearchParams(window.location.search).get('message');
-  const [isLogin, setIsLogin] = useState(true);
+  const [searchParams] = useSearchParams();
+  const successMessage = searchParams.get('message');
+  const modeParam = searchParams.get('mode');
+  
+  const [isLogin, setIsLogin] = useState(modeParam !== 'register');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login, register, continueAsGuest } = useAuth();
@@ -18,6 +21,14 @@ export default function AuthenticationUI() {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (modeParam === 'register') {
+      setIsLogin(false);
+    } else if (modeParam === 'login') {
+      setIsLogin(true);
+    }
+  }, [modeParam]);
 
   const validateEmail = (email) => {
     const uclaEmailRegex = /^[a-zA-Z0-9._%+-]+@ucla\.edu$/;
@@ -65,32 +76,30 @@ export default function AuthenticationUI() {
     setIsLoading(true);
 
     try {
-    let result;
-    
-    if (isLogin) {
-      result = await login({
-        email: formData.email,
-        password: formData.password
-      });
-    } else {
-      result = await register({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-      });
+      let result;
+      
+      if (isLogin) {
+        result = await login({
+          email: formData.email,
+          password: formData.password
+        });
+      } else {
+        result = await register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        });
+      }
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        alert(result.error || 'An error occurred');
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || 'An unexpected error occurred');
+    } finally {
+      setIsLoading(false);
     }
-    if (result.success) {
-      // Navigate to dashboard on success
-      navigate('/dashboard');
-    } else {
-      alert(result.error || 'An error occurred');
-    }
-  } catch (error) {
-    alert(error.response?.data?.message || 'An unexpected error occurred');
-  } finally {
-    setIsLoading(false);
-  }
-
   };
 
   const handleChange = (e) => {
@@ -123,11 +132,12 @@ export default function AuthenticationUI() {
     <div className="auth-container">
       <div className="auth-wrapper">
         <div className="auth-header">
-            <div className="logo-circle ucla-logo-circle">
+          <div className="logo-circle ucla-logo-circle">
             <img
               src="/BruinLease_logo.png"
               className="ucla-logo"
-              />
+              alt="BruinLease Logo"
+            />
           </div>
           <h1>BruinLease</h1>
           <p>UCLA Off-Campus Housing Finder</p>
@@ -141,7 +151,6 @@ export default function AuthenticationUI() {
             </p>
           </div>
 
-          {/* Success Message */}
           {successMessage && (
             <div style={{
               backgroundColor: '#d4edda',
@@ -155,7 +164,6 @@ export default function AuthenticationUI() {
             </div>
           )}
 
-          {/* General Error Message */}
           {errors.general && (
             <div style={{
               backgroundColor: '#f8d7da',
@@ -341,4 +349,3 @@ export default function AuthenticationUI() {
     </div>
   );
 }
-

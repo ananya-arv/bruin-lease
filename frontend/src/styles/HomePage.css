@@ -1,0 +1,372 @@
+/* HomePage Styles */
+.homepage {
+  min-height: 100vh;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #4485c9 0%, #2563eb 100%);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Lexend', sans-serif;
+}
+
+.hero-subtitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  color: #e8f4ff;
+  line-height: 1.6;
+  font-family: 'Lexend', sans-serif;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Lexend', sans-serif;
+}
+
+.cta-button.primary {
+  background: white;
+  color: #4485c9;
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-button.secondary:hover {
+  background: white;
+  color: #4485c9;
+}
+
+.cta-button.guest {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-button.guest:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cta-button.large {
+  padding: 1.25rem 3rem;
+  font-size: 1.25rem;
+}
+
+/* Features Section */
+.features-section {
+  padding: 5rem 2rem;
+  background: #f9fafb;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #111827;
+  font-family: 'Lexend', sans-serif;
+}
+
+.features-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+  font-family: 'Lexend', sans-serif;
+}
+
+.feature-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 5rem 2rem;
+  background: white;
+}
+
+.steps-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.step-card {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4485c9, #2563eb);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 1.5rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.step-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #111827;
+  font-family: 'Lexend', sans-serif;
+}
+
+.step-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Stats Section */
+.stats-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #4485c9, #2563eb);
+  color: white;
+}
+
+.stats-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.stat-card p {
+  font-size: 1.125rem;
+  color: #e8f4ff;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 5rem 2rem;
+  background: #f9fafb;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111827;
+  font-family: 'Lexend', sans-serif;
+}
+
+.cta-section p {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Footer */
+.footer {
+  background: #111827;
+  color: white;
+  padding: 3rem 2rem 1rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.footer-section p {
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+  font-family: 'Lexend', sans-serif;
+}
+
+.footer-section a {
+  display: block;
+  color: #9ca3af;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+  font-family: 'Lexend', sans-serif;
+}
+
+.footer-section a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #374151;
+}
+
+.footer-bottom p {
+  color: #9ca3af;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .cta-button {
+    width: 100%;
+  }
+
+  .logo-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-logo {
+    width: 60px;
+    height: 60px;
+  }
+}
