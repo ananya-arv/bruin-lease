@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listingAPI } from '../services/api';
+import Navbar from '../components/Navbar';
 import '../styles/CreateListingPage.css';
 
 const CreateListingPage = () => {
@@ -202,18 +203,24 @@ const handleAddressBlur = () => {
     navigate('/listings');
   };
 
+
   if (success) {
     return (
+      <>
+      <Navbar />
       <div className="create-listing-page">
         <div className="success-message">
           <h2>✓ Listing Created Successfully!</h2>
           <p>Redirecting to listings page...</p>
         </div>
       </div>
+      </>
     );
   }
 
   return (
+    <>
+    <Navbar />
     <div className="create-listing-page">
       <div className="create-listing-header">
         <h1>Create New Listing</h1>
@@ -406,6 +413,7 @@ const handleAddressBlur = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
