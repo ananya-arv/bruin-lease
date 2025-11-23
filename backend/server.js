@@ -22,8 +22,10 @@ connectDB();
 // the routes
 const authRoutes = require('./routes/authRoutes');
 const listingRoutes = require('./routes/listingRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 app.use('/api/listings', listingRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/messages', messageRoutes);
 
 
 // checking the health status of api
