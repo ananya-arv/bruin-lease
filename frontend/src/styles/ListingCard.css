@@ -187,3 +187,31 @@
     text-align: center;
   }
 }
+
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  justify-content: center;
+}
+
+.card-rating-stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.card-rating-stars .star {
+  font-size: 1rem;
+  color: #d1d5db;
+}
+
+.card-rating-stars .star.filled {
+  color: #fbbf24;
+}
+
+.card-rating-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
