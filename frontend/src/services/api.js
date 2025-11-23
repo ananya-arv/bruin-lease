@@ -50,4 +50,13 @@ export const messageAPI = {
   deleteMessage: (id) => api.delete(`/messages/${id}`)
 };
 
+// Review API calls
+export const reviewAPI = {
+  getReviews: (listingId) => api.get(`/listings/${listingId}/reviews`),
+  createReview: (listingId, reviewData) => api.post(`/listings/${listingId}/reviews`, reviewData),
+  getMyReview: (listingId) => api.get(`/listings/${listingId}/reviews/my-review`),
+  updateReview: (reviewId, reviewData) => api.put(`/reviews/${reviewId}`, reviewData),
+  deleteReview: (reviewId) => api.delete(`/reviews/${reviewId}`)
+};
+
 export default api;
