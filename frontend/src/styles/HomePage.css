@@ -5,6 +5,25 @@
   background: #4485c9;
 }
 
+/* Top-right crest on homepage */
+.homepage {
+  position: relative;
+}
+
+.homepage-crest {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  z-index: 200;
+  background: white;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
 /* Guest Banner */
 .guest-banner {
   background-color: #fef3c7;

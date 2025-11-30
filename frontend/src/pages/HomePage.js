@@ -33,6 +33,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
+      <img src="/Bruinslogo.png" alt="UCLA Bruins" className="homepage-crest" />
       {/* Guest Mode Banner */}
       {isGuest && (
         <div style={{
