@@ -192,6 +192,7 @@ const HomePage = () => {
             <h4>Contact</h4>
             <p>support@bruinlease.com</p>
             <p>UCLA Community</p>
+            <img src="/campus-logo.jpg" alt="UCLA Campus" className="footer-campus-logo" />
           </div>
         </div>
         <div className="footer-bottom">
