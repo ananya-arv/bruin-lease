@@ -36,6 +36,13 @@
   object-fit: contain;
 }
 
+/* Secondary crest (UCLA crest) */
+.navbar-crest {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
 .navbar-title {
   font-size: 1.5rem;
   font-weight: 700;

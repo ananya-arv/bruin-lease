@@ -60,6 +60,7 @@ const Navbar = () => {
           className="navbar-brand" 
           onClick={handleBrandClick}
         >
+          <img src="/Bruinslogo.png" alt="UCLA Bruins" className="navbar-crest" />
           <img src="/BruinLease_logo.png" alt="BruinLease" className="navbar-logo" />
           <span className="navbar-title">BruinLease</span>
         </div>
