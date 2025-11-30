@@ -55,6 +55,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <img src="/Bruinslogo.png" alt="UCLA Bruins" className="navbar-crest-top" />
       <div className="navbar-container">
         <div 
           className="navbar-brand" 
