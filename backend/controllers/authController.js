@@ -1,6 +1,13 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const validator = require('validator');
+const xss = require('xss');
+
+const sanitizeString = (str) => {
+  if (!str) return str;
+  return xss(validator.trim(str));
+};
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -8,31 +15,78 @@ const generateToken = (id) => {
   });
 };
 
-// @desc    Register new user
-// @route   POST /api/auth/register
-// @access  Public
+
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // validate user
-    if (!name || !email || !password) {
+    if (!name || validator.isEmpty(name.trim())) {
       return res.status(400).json({
         status: 'error',
-        message: 'Please provide name, email, and password'
+        message: 'Name is required'
       });
     }
 
-    // verification of UCLA email
-    if (!email.endsWith('@ucla.edu')) {
+    if (!validator.isLength(name, { min: 2, max: 50 })) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Name must be between 2 and 50 characters'
+      });
+    }
+
+    const sanitizedName = sanitizeString(name);
+
+    if (!email || validator.isEmpty(email.trim())) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Email is required'
+      });
+    }
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Please provide a valid email address'
+      });
+    }
+
+    const normalizedEmail = validator.normalizeEmail(email.toLowerCase());
+
+    if (!normalizedEmail.endsWith('@ucla.edu')) {
       return res.status(400).json({
         status: 'error',
         message: 'Please use a valid UCLA email address (@ucla.edu)'
       });
     }
 
-    // check if the user already exists
-    const userExists = await User.findOne({ email });
+    if (!password) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Password is required'
+      });
+    }
+
+    if (!validator.isLength(password, { min: 6, max: 100 })) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Password must be at least 6 characters long'
+      });
+    }
+
+    if (!validator.isStrongPassword(password, {
+      minLength: 6,
+      minLowercase: 1,
+      minUppercase: 0,
+      minNumbers: 0,
+      minSymbols: 0
+    })) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Password must contain at least one lowercase letter'
+      });
+    }
+
+    const userExists = await User.findOne({ email: normalizedEmail });
     if (userExists) {
       return res.status(400).json({
         status: 'error',
@@ -40,18 +94,15 @@ const register = async (req, res) => {
       });
     }
 
-    // hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // creating the user
     const user = await User.create({
-      name,
-      email,
+      name: sanitizedName,
+      email: normalizedEmail,
       password: hashedPassword
     });
 
-    // returning the user data with token
     res.status(201).json({
       status: 'success',
       data: {
@@ -70,23 +121,35 @@ const register = async (req, res) => {
   }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
-// @access  Public
+
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // validating
-    if (!email || !password) {
+    if (!email || validator.isEmpty(email.trim())) {
       return res.status(400).json({
         status: 'error',
-        message: 'Please provide email and password'
+        message: 'Email is required'
       });
     }
 
-    // checking if user exists
-    const user = await User.findOne({ email });
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Please provide a valid email address'
+      });
+    }
+
+    const normalizedEmail = validator.normalizeEmail(email.toLowerCase());
+
+    if (!password) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Password is required'
+      });
+    }
+
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(401).json({
         status: 'error',
@@ -94,7 +157,6 @@ const login = async (req, res) => {
       });
     }
 
-    // checking password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(401).json({
@@ -103,7 +165,6 @@ const login = async (req, res) => {
       });
     }
 
-    // returning user data with token
     res.status(200).json({
       status: 'success',
       data: {
@@ -122,9 +183,6 @@ const login = async (req, res) => {
   }
 };
 
-// @desc    Get current user profile
-// @route   GET /api/auth/me
-// @access  Private
 const getMe = async (req, res) => {
   try {
     const user = req.user;
