@@ -171,87 +171,36 @@ const getListing = async (req, res) => {
 
 const createListing = async (req, res) => {
   try {
-    const { title, description, price, category, condition, location } = req.body;
+    console.log('Received listing data:', req.body);
 
-    if (!title || validator.isEmpty(title.trim())) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
+    // Validate and sanitize the input
+    const { errors, sanitized } = validateAndSanitizeListingInput(req.body);
+
+    if (errors.length > 0) {
       return res.status(400).json({
         status: 'error',
-        message: 'Title is required'
+        message: errors.join(', '),
+        errors
       });
     }
 
-    if (!validator.isLength(title, { min: 3, max: 100 })) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Title must be between 3 and 100 characters'
-      });
-    }
-
-    if (!description || validator.isEmpty(description.trim())) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Description is required'
-      });
-    }
-
-    if (!validator.isLength(description, { min: 10, max: 1000 })) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Description must be between 10 and 1000 characters'
-      });
-    }
-
-    if (!price || !validator.isFloat(String(price), { min: 0 })) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Valid price is required'
-      });
-    }
-
-    if (!category || validator.isEmpty(category.trim())) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Category is required'
-      });
-    }
-
-    const sanitizedTitle = sanitizeString(title);
-    const sanitizedDescription = sanitizeString(description);
-    const sanitizedCategory = sanitizeString(category);
-    const sanitizedCondition = condition ? sanitizeString(condition) : 'used';
-    const sanitizedLocation = location ? sanitizeString(location) : '';
-
-    const images = req.files ? req.files.map(file => `/uploads/listings/${file.filename}`) : [];
-
+    // Create the listing with sanitized data
     const listing = await Listing.create({
-      title: sanitizedTitle,
-      description: sanitizedDescription,
-      price,
-      category: sanitizedCategory,
-      condition: sanitizedCondition,
-      location: sanitizedLocation,
-      images,
+      title: sanitized.title,
+      description: sanitized.description,
+      address: sanitized.address,
+      zipCode: sanitized.zipCode,
+      country: sanitized.country,
+      price: sanitized.price,
+      bedrooms: sanitized.bedrooms,
+      distanceFromUCLA: sanitized.distanceFromUCLA,
+      leaseDuration: sanitized.leaseDuration,
+      images: sanitized.images,
+      availability: sanitized.availability || 'Available',
       owner: req.user._id
     });
 
+    // Populate owner information
     const populatedListing = await Listing.findById(listing._id)
       .populate('owner', 'name email');
 
@@ -260,13 +209,11 @@ const createListing = async (req, res) => {
       data: populatedListing
     });
   } catch (error) {
-    if (req.files) {
-      deleteFiles(req.files.map(f => f.path));
-    }
-    console.error(error);
+    console.error('Error creating listing:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error creating listing'
+      message: 'Error creating listing',
+      error: error.message
     });
   }
 };
