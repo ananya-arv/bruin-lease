@@ -1,5 +1,12 @@
 const Message = require('../models/Message');
 const User = require('../models/User');
+const validator = require('validator');
+const xss = require('xss');
+
+const sanitizeString = (str) => {
+  if (!str) return str;
+  return xss(validator.trim(str));
+};
 
 const sendMessage = async (req, res) => {
   try {
@@ -11,6 +18,22 @@ const sendMessage = async (req, res) => {
         message: 'Receiver and message content are required'
       });
     }
+
+    if (validator.isEmpty(content.trim())) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Message content cannot be empty'
+      });
+    }
+
+    if (!validator.isLength(content, { min: 1, max: 1000 })) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Message content must be between 1 and 1000 characters'
+      });
+    }
+
+    const sanitizedContent = sanitizeString(content);
 
     const receiver = await User.findById(receiverId);
     if (!receiver) {
@@ -30,7 +53,7 @@ const sendMessage = async (req, res) => {
     const message = await Message.create({
       sender: req.user._id,
       receiver: receiverId,
-      content,
+      content: sanitizedContent,
       listing: listingId || null
     });
 

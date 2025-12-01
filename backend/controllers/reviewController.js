@@ -1,5 +1,12 @@
 const Review = require('../models/Review');
 const Listing = require('../models/Listing');
+const validator = require('validator');
+const xss = require('xss');
+
+const sanitizeString = (str) => {
+  if (!str) return str;
+  return xss(validator.trim(str));
+};
 
 const getReviews = async (req, res) => {
   try {
@@ -34,7 +41,23 @@ const createReview = async (req, res) => {
       });
     }
 
-    if (rating < 1 || rating > 5) {
+    if (validator.isEmpty(comment.trim())) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Comment cannot be empty'
+      });
+    }
+
+    if (!validator.isLength(comment, { min: 10, max: 500 })) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Comment must be between 10 and 500 characters'
+      });
+    }
+
+    const sanitizedComment = sanitizeString(comment);
+
+    if (!validator.isInt(String(rating), { min: 1, max: 5 })) {
       return res.status(400).json({
         status: 'error',
         message: 'Rating must be between 1 and 5'
@@ -72,7 +95,7 @@ const createReview = async (req, res) => {
       listing: listingId,
       user: req.user._id,
       rating,
-      comment
+      comment: sanitizedComment
     });
 
     const populatedReview = await Review.findById(review._id)
@@ -112,16 +135,36 @@ const updateReview = async (req, res) => {
 
     const { rating, comment } = req.body;
 
-    if (rating && (rating < 1 || rating > 5)) {
+    if (rating && !validator.isInt(String(rating), { min: 1, max: 5 })) {
       return res.status(400).json({
         status: 'error',
         message: 'Rating must be between 1 and 5'
       });
     }
 
+    if (comment) {
+      if (validator.isEmpty(comment.trim())) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Comment cannot be empty'
+        });
+      }
+
+      if (!validator.isLength(comment, { min: 10, max: 500 })) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Comment must be between 10 and 500 characters'
+        });
+      }
+    }
+
+    const updateData = {};
+    if (rating) updateData.rating = rating;
+    if (comment) updateData.comment = sanitizeString(comment);
+
     review = await Review.findByIdAndUpdate(
       req.params.id,
-      { rating, comment },
+      updateData,
       {
         new: true,
         runValidators: true
