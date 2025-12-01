@@ -10,6 +10,7 @@ import ListingDetail from './pages/ListingDetail';
 import Messages from './pages/Messages';
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestProtectedRoute from './components/GuestProtectedRoute';
+import BookmarksPage from './pages/BookmarksPage';
 import { useAuth } from './context/AuthContext';
 import './index.css';
 
@@ -49,6 +50,9 @@ function App() {
               <MyListings />
             </GuestProtectedRoute>
           } 
+        />
+        <Route path="/bookmarks" 
+        element={<BookmarksPage />} 
         />
         <Route 
           path="/messages" 

@@ -1,0 +1,138 @@
+.bookmarks-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.bookmarks-header {
+  margin-bottom: 2rem;
+}
+
+.bookmarks-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.bookmarks-header p {
+  color: #666;
+}
+
+.no-bookmarks {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.no-bookmarks svg {
+  color: #d1d5db;
+  margin: 0 auto 1rem;
+}
+
+.no-bookmarks h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-bookmarks p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.no-bookmarks button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.bookmarks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.bookmark-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.bookmark-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.bookmark-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.bookmark-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-bookmark-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: white;
+  transition: all 0.2s;
+}
+
+.remove-bookmark-btn:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.bookmark-info {
+  padding: 1rem;
+}
+
+.bookmark-info h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.bookmark-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 0.25rem;
+}
+
+.bookmark-address {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.bookmark-details {
+  display: flex;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.bookmark-date {
+  color: #999;
+  font-size: 0.75rem;
+}

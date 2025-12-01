@@ -264,3 +264,50 @@
     text-align: center;
   }
 }
+
+/* Bookmark Button Styles */
+.listing-image {
+  position: relative;
+}
+
+.bookmark-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  color: #374151;
+  z-index: 10;
+}
+
+.bookmark-button:hover {
+  background-color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.bookmark-button.bookmarked {
+  background-color: #ef4444;
+  color: white;
+}
+
+.bookmark-button.bookmarked:hover {
+  background-color: #dc2626;
+}
+
+.bookmark-button.animating {
+  transform: scale(1.25);
+}
+
+.bookmark-button svg {
+  display: block;
+}
