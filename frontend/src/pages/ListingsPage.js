@@ -16,7 +16,8 @@ const ListingsPage = () => {
     maxPrice: '',
     bedrooms: '',
     maxDistance: '',
-    minRating: ''
+    minRating: '',
+    availability: ''
   });
 
   useEffect(() => {
@@ -62,8 +63,11 @@ const ListingsPage = () => {
     const matchesRating = 
       !filters.minRating || 
       (listing.averageRating >= Number(filters.minRating) && listing.reviewCount > 0);
+    
+    const matchesAvailability = 
+      !filters.availability || listing.availability === filters.availability;
 
-    return matchesSearch && matchesPrice && matchesBedrooms && matchesDistance && matchesRating;
+    return matchesSearch && matchesPrice && matchesBedrooms && matchesDistance && matchesRating && matchesAvailability;
   });
 
   const clearFilters = () => {
@@ -72,7 +76,8 @@ const ListingsPage = () => {
       maxPrice: '',
       bedrooms: '',
       maxDistance: '',
-      minRating: ''
+      minRating: '',
+      availability: ''
     });
     setSearchTerm('');
     showSuccess('Filters cleared');
@@ -182,6 +187,20 @@ const ListingsPage = () => {
                 <option value="3">3+ Stars</option>
                 <option value="2">2+ Stars</option>
                 <option value="1">1+ Stars</option>
+              </select>
+            </div>
+
+            <div className="filter-group">
+              <label>Availability</label>
+              <select
+                name="availability"
+                value={filters.availability}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Listings</option>
+                <option value="Available">Available</option>
+                <option value="Pending">Pending</option>
+                <option value="Rented">Rented</option>
               </select>
             </div>
 
