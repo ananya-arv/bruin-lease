@@ -11,6 +11,7 @@ const CreateListingPage = () => {
   const [success, setSuccess] = useState(false);
   const [calculatingDistance, setCalculatingDistance] = useState(false);
   
+  
   const [formData, setFormData] = useState({
     title: '',
     description: '',

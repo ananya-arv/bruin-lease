@@ -48,6 +48,7 @@ const Navbar = () => {
       { path: '/my-listings', label: 'My Listings', icon: '📋' },
       { path: '/create-listing', label: 'Create Listing', icon: '➕' },
       { path: '/messages', label: 'Messages', icon: '💬' },
+      { path: '/bookmarks', label: 'My Bookmarks', icon: '📌' },
     ];
   };
 

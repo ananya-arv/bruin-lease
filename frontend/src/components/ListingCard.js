@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useBookmarks } from '../components/Bookmark';
 import '../styles/ListingCard.css';
 
 const ListingCard = ({ listing }) => {
   const navigate = useNavigate();
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const getStatusClass = (status) => {
     return status.toLowerCase();
@@ -30,8 +33,27 @@ const ListingCard = ({ listing }) => {
     );
   };
 
+  const handleBookmarkClick = async (e) => {
+  e.stopPropagation();
+  console.log('=== BOOKMARK CLICK ===');
+  console.log('Listing object:', listing);
+  console.log('Listing ID:', listingId);
+  console.log('Currently bookmarked:', bookmarked);
+  
+  setIsAnimating(true);
+  const result = await toggleBookmark(listing);
+  console.log('Toggle result:', result);
+  
+  setTimeout(() => setIsAnimating(false), 300);
+};
+
+const listingId = listing._id || listing.id;
+const bookmarked = isBookmarked(listingId);
+
+console.log('ListingCard render - ID:', listingId, 'Bookmarked:', bookmarked);
+
   return (
-    <div className="listing-card" onClick={() => navigate(`/listings/${listing._id}`)}>
+    <div className="listing-card" onClick={() => navigate(`/listings/${listingId}`)}>
       <div className="listing-image">
         {listing.images && listing.images.length > 0 ? (
           <img src={listing.images[0]} alt={listing.title} />
@@ -43,6 +65,24 @@ const ListingCard = ({ listing }) => {
         <div className={`availability-badge ${getStatusClass(listing.availability)}`}>
           {listing.availability}
         </div>
+        
+        {/* Bookmark Button */}
+        <button
+          onClick={handleBookmarkClick}
+          className={`bookmark-button ${bookmarked ? 'bookmarked' : ''} ${isAnimating ? 'animating' : ''}`}
+          aria-label={bookmarked ? 'Remove bookmark' : 'Add bookmark'}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill={bookmarked ? 'currentColor' : 'none'}
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
       </div>
 
       <div className="listing-content">
