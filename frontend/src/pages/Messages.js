@@ -7,7 +7,7 @@ import '../styles/Messages.css';
 
 const Messages = () => {
   const { user } = useAuth();
-  const { showSuccess, showError, showInfo } = useToast();
+  const { showSuccess, showError } = useToast();
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -41,11 +41,6 @@ const Messages = () => {
       const response = await messageAPI.getAllConversations();
       setConversations(response.data.data);
       
-      if (response.data.data.length > 0) {
-        showInfo(`${response.data.data.length} conversation(s) loaded`);
-      } else {
-        showInfo('No conversations yet');
-      }
     } catch (error) {
       console.error('Error fetching conversations:', error);
       showError('Failed to load conversations');
@@ -171,7 +166,6 @@ const Messages = () => {
                     }`}
                     onClick={() => {
                       setSelectedConversation(conv);
-                      showInfo(`Opened conversation with ${conv.partner.name}`);
                     }}
                   >
                     <div className="conversation-avatar">
