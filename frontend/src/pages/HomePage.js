@@ -33,8 +33,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <img src="/Bruinslogo.png" alt="UCLA Bruins" className="homepage-crest-left" />
-      <img src="/Bruinslogo.png" alt="UCLA Bruins" className="homepage-crest" />
       
       {/* Hero Section */}
       <div className="hero-section">
