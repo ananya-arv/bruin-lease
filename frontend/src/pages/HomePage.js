@@ -35,40 +35,7 @@ const HomePage = () => {
     <div className="homepage">
       <img src="/Bruinslogo.png" alt="UCLA Bruins" className="homepage-crest-left" />
       <img src="/Bruinslogo.png" alt="UCLA Bruins" className="homepage-crest" />
-      {/* Guest Mode Banner */}
-      {isGuest && (
-        <div style={{
-          backgroundColor: '#fef3c7',
-          color: '#92400e',
-          padding: '1rem 2rem',
-          textAlign: 'center',
-          fontWeight: 500,
-          borderBottom: '1px solid #fde68a',
-          fontFamily: "'Lexend', sans-serif",
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '1rem'
-        }}>
-          <span>👀 You're browsing as a guest</span>
-          <button
-            onClick={handleExitGuestMode}
-            style={{
-              backgroundColor: '#92400e',
-              color: 'white',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.375rem',
-              cursor: 'pointer',
-              fontWeight: 500,
-              fontSize: '0.875rem',
-              fontFamily: "'Lexend', sans-serif"
-            }}
-          >
-            Exit Guest Mode
-          </button>
-        </div>
-      )}
+      
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">

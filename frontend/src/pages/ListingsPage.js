@@ -109,6 +109,7 @@ const ListingsPage = () => {
     <>
       <Navbar />
       <div className="listings-page">
+        
         <div className="listings-header">
           <h1>Available Listings</h1>
           <p>Find your perfect housing near UCLA</p>
