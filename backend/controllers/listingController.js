@@ -1,7 +1,5 @@
 const Listing = require('../models/Listing');
 const validator = require('validator');
-const { deleteFiles } = require('../middleware/fileUpload');
-const path = require('path');
 const xss = require('xss');
 
 const sanitizeString = (str) => {
@@ -94,12 +92,11 @@ const validateAndSanitizeListingInput = (data) => {
     sanitized.description = sanitizeString(data.description);
   }
 
-  // Images validation and sanitization
+  // Images validation - expecting base64 strings or data URLs
   if (data.images && Array.isArray(data.images)) {
     sanitized.images = data.images
-      .filter(url => validator.isURL(url, { protocols: ['http', 'https'] }))
-      .map(url => sanitizeString(url))
-      .slice(0, 10); 
+      .filter(img => typeof img === 'string' && img.length > 0)
+      .slice(0, 10); // Max 10 images
   } else {
     sanitized.images = [];
   }
@@ -223,9 +220,6 @@ const updateListing = async (req, res) => {
     let listing = await Listing.findById(req.params.id);
 
     if (!listing) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
       return res.status(404).json({
         status: 'error',
         message: 'Listing not found'
@@ -233,33 +227,36 @@ const updateListing = async (req, res) => {
     }
 
     if (listing.owner.toString() !== req.user._id.toString()) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
       return res.status(403).json({
         status: 'error',
         message: 'Not authorized to update this listing'
       });
     }
 
-    const { title, description, price, category, condition, location, removeImages } = req.body;
+    const { 
+      title, 
+      description, 
+      price, 
+      address,
+      zipCode,
+      country,
+      bedrooms,
+      distanceFromUCLA,
+      leaseDuration,
+      availability,
+      images
+    } = req.body;
 
     const updateData = {};
 
     if (title) {
       if (validator.isEmpty(title.trim())) {
-        if (req.files) {
-          deleteFiles(req.files.map(f => f.path));
-        }
         return res.status(400).json({
           status: 'error',
           message: 'Title cannot be empty'
         });
       }
       if (!validator.isLength(title, { min: 3, max: 100 })) {
-        if (req.files) {
-          deleteFiles(req.files.map(f => f.path));
-        }
         return res.status(400).json({
           status: 'error',
           message: 'Title must be between 3 and 100 characters'
@@ -270,70 +267,44 @@ const updateListing = async (req, res) => {
 
     if (description) {
       if (validator.isEmpty(description.trim())) {
-        if (req.files) {
-          deleteFiles(req.files.map(f => f.path));
-        }
         return res.status(400).json({
           status: 'error',
           message: 'Description cannot be empty'
         });
       }
-      if (!validator.isLength(description, { min: 10, max: 1000 })) {
-        if (req.files) {
-          deleteFiles(req.files.map(f => f.path));
-        }
+      if (!validator.isLength(description, { min: 10, max: 2000 })) {
         return res.status(400).json({
           status: 'error',
-          message: 'Description must be between 10 and 1000 characters'
+          message: 'Description must be between 10 and 2000 characters'
         });
       }
       updateData.description = sanitizeString(description);
     }
 
     if (price !== undefined) {
-      if (!validator.isFloat(String(price), { min: 0 })) {
-        if (req.files) {
-          deleteFiles(req.files.map(f => f.path));
-        }
+      if (!validator.isFloat(String(price), { min: 0, max: 50000 })) {
         return res.status(400).json({
           status: 'error',
-          message: 'Valid price is required'
+          message: 'Valid price is required (0-50000)'
         });
       }
-      updateData.price = price;
+      updateData.price = parseFloat(price);
     }
 
-    if (category) updateData.category = sanitizeString(category);
-    if (condition) updateData.condition = sanitizeString(condition);
-    if (location) updateData.location = sanitizeString(location);
+    if (address) updateData.address = sanitizeString(address);
+    if (zipCode) updateData.zipCode = sanitizeString(zipCode);
+    if (country) updateData.country = sanitizeString(country);
+    if (bedrooms !== undefined) updateData.bedrooms = parseInt(bedrooms);
+    if (distanceFromUCLA !== undefined) updateData.distanceFromUCLA = parseFloat(distanceFromUCLA);
+    if (leaseDuration) updateData.leaseDuration = sanitizeString(leaseDuration);
+    if (availability) updateData.availability = availability;
 
-    let currentImages = [...listing.images];
-
-    if (removeImages) {
-      const imagesToRemove = JSON.parse(removeImages);
-      imagesToRemove.forEach(imageUrl => {
-        const imagePath = path.join(__dirname, '../..', imageUrl);
-        deleteFiles(imagePath);
-        currentImages = currentImages.filter(img => img !== imageUrl);
-      });
+    // Handle images update - base64 images from frontend
+    if (images && Array.isArray(images)) {
+      updateData.images = images
+        .filter(img => typeof img === 'string' && img.length > 0)
+        .slice(0, 10); // Max 10 images
     }
-
-    if (req.files && req.files.length > 0) {
-      const newImages = req.files.map(file => `/uploads/listings/${file.filename}`);
-      currentImages = [...currentImages, ...newImages];
-    }
-
-    if (currentImages.length > 5) {
-      if (req.files) {
-        deleteFiles(req.files.map(f => f.path));
-      }
-      return res.status(400).json({
-        status: 'error',
-        message: 'Maximum 5 images allowed per listing'
-      });
-    }
-
-    updateData.images = currentImages;
 
     listing = await Listing.findByIdAndUpdate(
       req.params.id,
@@ -349,9 +320,6 @@ const updateListing = async (req, res) => {
       data: listing
     });
   } catch (error) {
-    if (req.files) {
-      deleteFiles(req.files.map(f => f.path));
-    }
     console.error(error);
     res.status(500).json({
       status: 'error',
@@ -375,14 +343,6 @@ const deleteListing = async (req, res) => {
       return res.status(403).json({
         status: 'error',
         message: 'Not authorized to delete this listing'
-      });
-    }
-
-    // Delete associated images
-    if (listing.images && listing.images.length > 0) {
-      listing.images.forEach(imageUrl => {
-        const imagePath = path.join(__dirname, '../..', imageUrl);
-        deleteFiles(imagePath);
       });
     }
 
