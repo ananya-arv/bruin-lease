@@ -172,16 +172,6 @@ const Dashboard = () => {
               )}
             </div>
           </div>
-
-          <div className="quick-tips">
-            <h3>💡 Quick Tips</h3>
-            <ul>
-              <li>Add clear photos to attract more interest in your listings</li>
-              <li>Include detailed descriptions with amenities and nearby features</li>
-              <li>Keep your contact information up to date</li>
-              <li>Respond promptly to inquiries to close deals faster</li>
-            </ul>
-          </div>
         </div>
       </div>
     </>
