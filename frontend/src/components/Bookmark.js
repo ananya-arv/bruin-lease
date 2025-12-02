@@ -42,6 +42,7 @@ export const useBookmarks = () => {
         bathrooms: listing.bathrooms,
         distanceFromUCLA: listing.distanceFromUCLA,
         images: listing.images,
+        description: listing.description,
         savedAt: new Date().toISOString()
       };
       updatedBookmarks = [...bookmarks, bookmarkData];
