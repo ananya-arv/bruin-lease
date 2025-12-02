@@ -27,6 +27,12 @@ const listingSchema = new mongoose.Schema({
     required: [true, 'Please add a zip code'],
     trim: true
   },
+  country: {
+    type: String,
+    required: [true, 'Please add a country'],
+    trim: true,
+    default: 'USA'
+  },
   bedrooms: {
     type: Number,
     required: [true, 'Please add number of bedrooms'],
@@ -44,11 +50,21 @@ const listingSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, 'Please add a description'],
-    maxlength: [1000, 'Description cannot be more than 1000 characters']
+    maxlength: [2000, 'Description cannot be more than 2000 characters']
   },
-  images: [{
-    type: String
-  }],
+  images: {
+    type: [String],
+    default: [],
+    validate: {
+      validator: function(arr) {
+        // Validate array length
+        if (arr.length > 10) return false;
+        // Validate each image is a string
+        return arr.every(img => typeof img === 'string');
+      },
+      message: 'Images must be an array of strings with maximum 10 items'
+    }
+  },
   availability: {
     type: String,
     enum: ['Available', 'Pending', 'Rented'],
@@ -64,9 +80,14 @@ const listingSchema = new mongoose.Schema({
     type: Number,
     default: 0
   }
-
 }, {
   timestamps: true
 });
+
+// Index for faster queries
+listingSchema.index({ owner: 1, createdAt: -1 });
+listingSchema.index({ availability: 1 });
+listingSchema.index({ price: 1 });
+listingSchema.index({ distanceFromUCLA: 1 });
 
 module.exports = mongoose.model('Listing', listingSchema);

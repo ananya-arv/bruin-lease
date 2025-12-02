@@ -94,9 +94,21 @@ const validateAndSanitizeListingInput = (data) => {
 
   // Images validation - expecting base64 strings or data URLs
   if (data.images && Array.isArray(data.images)) {
-    sanitized.images = data.images
-      .filter(img => typeof img === 'string' && img.length > 0)
-      .slice(0, 10); // Max 10 images
+    try {
+      // Filter and validate images
+      sanitized.images = data.images
+        .filter(img => {
+          if (typeof img !== 'string' || img.length === 0) return false;
+          // Check if it's a valid base64 data URL
+          return img.startsWith('data:image/');
+        })
+        .slice(0, 10); // Max 10 images
+      
+      console.log(`Processed ${sanitized.images.length} valid images`);
+    } catch (imgError) {
+      console.error('Error processing images:', imgError);
+      sanitized.images = [];
+    }
   } else {
     sanitized.images = [];
   }
@@ -126,10 +138,11 @@ const getAllListings = async (req, res) => {
       data: listings
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching listings:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error fetching listings'
+      message: 'Error fetching listings',
+      error: error.message
     });
   }
 };
@@ -158,28 +171,39 @@ const getListing = async (req, res) => {
       data: listing
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching listing:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error fetching listing'
+      message: 'Error fetching listing',
+      error: error.message
     });
   }
 };
 
 const createListing = async (req, res) => {
   try {
-    console.log('Received listing data:', req.body);
+    console.log('=== CREATE LISTING REQUEST ===');
+    console.log('User ID:', req.user?._id);
+    console.log('Body keys:', Object.keys(req.body));
+    console.log('Images count:', req.body.images?.length || 0);
 
     // Validate and sanitize the input
     const { errors, sanitized } = validateAndSanitizeListingInput(req.body);
 
     if (errors.length > 0) {
+      console.error('Validation errors:', errors);
       return res.status(400).json({
         status: 'error',
         message: errors.join(', '),
         errors
       });
     }
+
+    console.log('Validation passed. Creating listing...');
+    console.log('Sanitized data:', {
+      ...sanitized,
+      images: `[${sanitized.images.length} images]`
+    });
 
     // Create the listing with sanitized data
     const listing = await Listing.create({
@@ -197,6 +221,8 @@ const createListing = async (req, res) => {
       owner: req.user._id
     });
 
+    console.log('Listing created successfully:', listing._id);
+
     // Populate owner information
     const populatedListing = await Listing.findById(listing._id)
       .populate('owner', 'name email');
@@ -206,11 +232,32 @@ const createListing = async (req, res) => {
       data: populatedListing
     });
   } catch (error) {
-    console.error('Error creating listing:', error);
+    console.error('=== ERROR CREATING LISTING ===');
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
+    // Check for specific MongoDB errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Validation error',
+        details: Object.values(error.errors).map(err => err.message)
+      });
+    }
+    
+    if (error.name === 'MongoError' && error.code === 11000) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Duplicate listing detected'
+      });
+    }
+
     res.status(500).json({
       status: 'error',
       message: 'Error creating listing',
-      error: error.message
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };
@@ -301,9 +348,16 @@ const updateListing = async (req, res) => {
 
     // Handle images update - base64 images from frontend
     if (images && Array.isArray(images)) {
-      updateData.images = images
-        .filter(img => typeof img === 'string' && img.length > 0)
-        .slice(0, 10); // Max 10 images
+      try {
+        updateData.images = images
+          .filter(img => {
+            if (typeof img !== 'string' || img.length === 0) return false;
+            return img.startsWith('data:image/');
+          })
+          .slice(0, 10); // Max 10 images
+      } catch (imgError) {
+        console.error('Error processing images during update:', imgError);
+      }
     }
 
     listing = await Listing.findByIdAndUpdate(
@@ -320,10 +374,11 @@ const updateListing = async (req, res) => {
       data: listing
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error updating listing:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error updating listing'
+      message: 'Error updating listing',
+      error: error.message
     });
   }
 };
@@ -353,10 +408,11 @@ const deleteListing = async (req, res) => {
       message: 'Listing deleted successfully'
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error deleting listing:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error deleting listing'
+      message: 'Error deleting listing',
+      error: error.message
     });
   }
 };
@@ -372,10 +428,11 @@ const getMyListings = async (req, res) => {
       data: listings
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching your listings:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Error fetching your listings'
+      message: 'Error fetching your listings',
+      error: error.message
     });
   }
 };
