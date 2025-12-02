@@ -64,22 +64,18 @@ const HomePage = () => {
         <h2 className="section-title">Why Choose BruinLease?</h2>
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon">🏠</div>
             <h3>Verified Listings</h3>
             <p>All listings from verified UCLA students. Safe and trustworthy housing options near campus.</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">📍</div>
             <h3>Near Campus</h3>
             <p>Find housing within walking distance or a short commute to UCLA. Filter by distance and preferences.</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">💬</div>
             <h3>Direct Messaging</h3>
             <p>Connect directly with property owners. Ask questions and schedule viewings seamlessly.</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">⚡</div>
             <h3>Easy & Fast</h3>
             <p>Simple search and filtering. Create listings in minutes. Find your next home quickly.</p>
           </div>
