@@ -6,40 +6,56 @@
 /* Navigation Styles */
 nav {
   background-color: #ffffff;
-  padding: 1rem 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 2.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid #f0efe6;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0;
 }
 
+nav ul li:first-child {
+  margin-right: auto;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+nav ul li:first-child a {
+  color: #2563eb;
+  font-weight: 700;
+}
+
 nav a {
-  color: #1a1a1a;
+  color: #374151;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9375rem;
-  letter-spacing: -0.01em;
-  transition: color 0.2s ease;
-  padding: 0.5rem 0;
+  letter-spacing: 0;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: inline-block;
 }
 
 nav a:hover {
   color: #2563eb;
+  background-color: #eff6ff;
 }
 
 nav a.active {
   color: #2563eb;
+  background-color: #dbeafe;
   font-weight: 600;
 }
 
