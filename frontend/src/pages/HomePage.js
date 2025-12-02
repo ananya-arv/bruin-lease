@@ -109,23 +109,6 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <h3>500+</h3>
-            <p>Active Listings</p>
-          </div>
-          <div className="stat-card">
-            <h3>1000+</h3>
-            <p>Verified Students</p>
-          </div>
-          <div className="stat-card">
-            <h3>50+</h3>
-            <p>Properties Near Campus</p>
-          </div>
-        </div>
-      </div>
 
       {/* CTA Section */}
       <div className="cta-section">
@@ -157,7 +140,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 BruinLease. All rights reserved.</p>
+          <p>&copy; 2025 BruinLease. All rights reserved.</p>
         </div>
       </footer>
     </div>
