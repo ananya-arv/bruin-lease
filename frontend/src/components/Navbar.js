@@ -38,17 +38,17 @@ const Navbar = () => {
   const getNavItems = () => {
     if (isGuest) {
       return [
-        { path: '/listings', label: 'Browse Listings', icon: '🔍' },
+        { path: '/listings', label: 'Browse Listings' },
       ];
     }
     
     return [
-      { path: '/dashboard', label: 'Dashboard', icon: '🏠' },
-      { path: '/listings', label: 'Browse Listings', icon: '🔍' },
-      { path: '/my-listings', label: 'My Listings', icon: '📋' },
-      { path: '/create-listing', label: 'Create Listing', icon: '➕' },
-      { path: '/messages', label: 'Messages', icon: '💬' },
-      { path: '/bookmarks', label: 'My Bookmarks', icon: '📌' },
+      { path: '/dashboard', label: 'Dashboard' },
+      { path: '/listings', label: 'Browse Listings'},
+      { path: '/my-listings', label: 'My Listings' },
+      { path: '/create-listing', label: 'Create Listing'},
+      { path: '/messages', label: 'Messages' },
+      { path: '/bookmarks', label: 'My Bookmarks' },
     ];
   };
 
@@ -61,7 +61,6 @@ const Navbar = () => {
           className="navbar-brand" 
           onClick={handleBrandClick}
         >
-          <img src="/Bruinslogo.png" alt="UCLA Bruins" className="navbar-crest" />
           <img src="/BruinLease_logo.png" alt="BruinLease" className="navbar-logo" />
           <span className="navbar-title">BruinLease</span>
         </div>
