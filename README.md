@@ -17,7 +17,7 @@ The system follows a standard Client-Server architecture, utilizing the MERN sta
 
 ### 1. Client-Server Architecture
 
-This architecture illustrates the separation of concerns between the React frontend, the Node/Express API, and the MongoDB database cluster, highlighting the secure communication flow using JWTs.
+This architecture illustrates the separation of concerns between the React frontend, the Node/Express API, and the MongoDB database cluster, highlighting the secure communication flow using JWTs. {INSERT DIAGRAM - PLACEHOLDER}
 
 | Component | Technology | Responsibility |
 |-----------|------------|----------------|
@@ -28,7 +28,7 @@ This architecture illustrates the separation of concerns between the React front
 
 ### 2. Entity-Relationship Diagram (ERD)
 
-This diagram details the core data entities and their relationships within the MongoDB database, reflecting the Mongoose schemas defined in the `backend/models` directory.
+This diagram details the core data entities and their relationships within the MongoDB database, reflecting the Mongoose schemas defined in the `backend/models` directory. {INSERT DIAGRAM - PLACEHOLDER}
 
 | Entity | Key Fields | Relationships |
 |--------|------------|---------------|
