@@ -64,7 +64,6 @@ NODE_ENV=development
 PORT=5001
 MONGO_URI=mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTER_URL>/bruinlease?retryWrites=true&w=majority
 JWT_SECRET=<YOUR_LONG_SECRET_KEY>
-JWT_EXPIRES_IN=30d
 ```
 
 Replace placeholders with your MongoDB Atlas connection string and a strong secret key.
