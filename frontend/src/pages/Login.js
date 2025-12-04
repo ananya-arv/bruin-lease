@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import BruinLogos from '../components/BruinLogos';
 import './index.css'; 
 
 export default function AuthenticationUI() {
@@ -148,6 +149,7 @@ export default function AuthenticationUI() {
 
   return (
     <div className="auth-container">
+      <BruinLogos />
       <div className="auth-wrapper">
         <div className="auth-header">
           <div className="logo-circle ucla-logo-circle">

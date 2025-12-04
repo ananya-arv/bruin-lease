@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BruinLogos from '../components/BruinLogos';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -34,8 +35,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       {/* Top Corner Logos */}
-      <img src="/Bruinslogo.png" alt="UCLA Logo" className="homepage-crest-left" />
-      <img src="/Bruinslogo.png" alt="UCLA Logo" className="homepage-crest" />
+      <BruinLogos />
       
       {/* Hero Section */}
       <div className="hero-section">
