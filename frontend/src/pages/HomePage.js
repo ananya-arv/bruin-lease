@@ -33,6 +33,9 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
+      {/* Top Corner Logos */}
+      <img src="/Bruinslogo.png" alt="UCLA Logo" className="homepage-crest-left" />
+      <img src="/Bruinslogo.png" alt="UCLA Logo" className="homepage-crest" />
       
       {/* Hero Section */}
       <div className="hero-section">
