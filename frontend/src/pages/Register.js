@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BruinLogos from '../components/BruinLogos';
 import '../styles/Auth.css';
 
 const Register = () => {
@@ -67,6 +68,7 @@ const Register = () => {
 
   return (
     <div className="auth-container">
+      <BruinLogos />
       <div className="auth-box">
         <div className="auth-header">
           <h1>Join BruinRent</h1>
