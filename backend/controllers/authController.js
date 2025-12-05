@@ -1,9 +1,6 @@
 /**
  * Authentication Controller
- * 
- * Handles user authentication operations including registration, login, and profile retrieval.
- * Implements UCLA email verification, password hashing, and JWT token generation.
- * All routes validate and sanitize user input to prevent security vulnerabilities.
+ * Handles user registration, login, and profile retrieval with UCLA email verification.
  * 
  * @module controllers/authController
  */
