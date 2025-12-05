@@ -28,7 +28,11 @@ This architecture illustrates the separation of concerns between the React front
 
 ### 2. Entity-Relationship Diagram (ERD)
 
-This diagram details the core data entities and their relationships within the MongoDB database, reflecting the Mongoose schemas defined in the `backend/models` directory. {INSERT DIAGRAM - PLACEHOLDER}
+This diagram details the core data entities and their relationships within the MongoDB database, reflecting the Mongoose schemas defined in the `backend/models` directory. 
+
+<p align="center">
+  <img src="./entity_relation_diagram.png" alt="Entity Relationship Diagram" width="800">
+</p>
 
 | Entity | Key Fields | Relationships |
 |--------|------------|---------------|
