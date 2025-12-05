@@ -1,3 +1,7 @@
+/**
+    * Toast Notification Context
+    * Global toast notification system for success/error/info messages
+    */
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import '../styles/Toast.css';
 

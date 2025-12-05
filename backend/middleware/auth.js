@@ -1,3 +1,7 @@
+/**
+    * JWT Authentication Middleware
+    * Security: Validates JWT signature, verifies user exists, strips password from response
+    */
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 

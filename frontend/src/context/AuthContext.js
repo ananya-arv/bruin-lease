@@ -1,3 +1,9 @@
+/**
+    * Authentication Context
+    * Provides global auth state and methods (login, register, logout, guest mode)
+    * Persists authentication via localStorage JWT tokens
+    */
+
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI } from '../services/api';
 

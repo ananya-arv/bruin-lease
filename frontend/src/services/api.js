@@ -21,7 +21,7 @@ const api = axios.create({
   }
 });
 
-// Add token to requests if it exists
+// Automatically inject JWT token from localStorage into all authenticated requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
