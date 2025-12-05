@@ -4,6 +4,16 @@ import { useAuth } from '../context/AuthContext';
 import { messageAPI } from '../services/api';
 import '../styles/MessageSellerButton.css';
 
+/**
+ * MessageSellerButton Component
+ * 
+ * Displays a button that allows users to send messages to listing owners.
+ * Includes a modal dialog for composing and sending messages.
+ * 
+ * @param {Object} props - Component props
+ * @param {Object} props.listing - The listing object containing owner, title, price, etc.
+ */
+
 const MessageSellerButton = ({ listing }) => {
   const { user, isGuest } = useAuth();
   const navigate = useNavigate();
@@ -11,6 +21,7 @@ const MessageSellerButton = ({ listing }) => {
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
 
+  // Check if the current user is the listing owner
   const isOwner = user && listing.owner && 
     (listing.owner._id === user.id || listing.owner === user.id);
 
@@ -30,6 +41,7 @@ const MessageSellerButton = ({ listing }) => {
     setMessage(`Hi! I'm interested in your listing: ${listing.title}`);
   };
 
+  // Handles sending the message to the listing owner
   const handleSendMessage = async () => {
     if (!message.trim()) {
       alert('Please enter a message');

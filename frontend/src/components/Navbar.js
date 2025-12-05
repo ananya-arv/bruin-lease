@@ -3,6 +3,18 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
 
+/**
+ * Navbar Component
+ * 
+ * Main navigation bar displayed across all pages.
+ * Handles:
+ * - Navigation to different sections of the app
+ * - User authentication display (logged in, guest, or signed out)
+ * - Access control for protected routes
+ * - Responsive display based on user authentication status
+ */
+
+
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();

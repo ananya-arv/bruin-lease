@@ -3,6 +3,20 @@ import { reviewAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Reviews.css';
 
+/**
+ * Reviews Component
+ * 
+ * Displays and manages reviews for a listing, including:
+ * - Viewing all reviews with ratings
+ * - Creating, editing, and deleting user's own review
+ * - Calculating average ratings
+ * - Access control (guests can't review, owners can't review their own listings)
+ * 
+ * @param {Object} props - Component props
+ * @param {string} props.listingId - The ID of the listing being reviewed
+ * @param {string} props.listingOwnerId - The ID of the listing owner
+ */
+
 const Reviews = ({ listingId, listingOwnerId }) => {
   const { user, isGuest } = useAuth();
   const [reviews, setReviews] = useState([]);
@@ -102,6 +116,13 @@ const Reviews = ({ listingId, listingOwnerId }) => {
     setEditingReview(null);
   };
 
+  /**
+   * Renders star rating display
+   * @param {number} rating - Rating value (1-5)
+   * @param {boolean} interactive - Whether stars are clickable
+   * @param {function} onRatingChange - Callback for when rating changes
+   * @returns {JSX.Element} Star rating component
+   */
   const renderStars = (rating, interactive = false, onRatingChange = null) => {
     return (
       <div className="stars">
