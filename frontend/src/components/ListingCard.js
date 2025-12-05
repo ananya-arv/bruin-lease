@@ -1,3 +1,25 @@
+/** ListingCard 
+ * 
+ * Displays a housing listing in a card format with key information,
+ * image, availability status, and bookmark functionality.
+ * 
+ * @component
+ * @param {Object} props
+ * @param {Object} props.listing - The listing object to display
+ * @param {string} props.listing._id - Unique listing identifier
+ * @param {string} props.listing.title - Listing title
+ * @param {number} props.listing.price - Monthly rent price
+ * @param {string} props.listing.address - Property address
+ * @param {number} props.listing.bedrooms - Number of bedrooms
+ * @param {number} props.listing.distanceFromUCLA - Distance from UCLA in miles
+ * @param {string} props.listing.availability - Current availability status
+ * @param {Array<string>} props.listing.images - Array of image URLs
+ * @param {string} props.listing.description - Listing description
+ * @param {number} props.listing.averageRating - Average user rating
+ * @param {number} props.listing.reviewCount - Number of reviews 
+ */
+
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBookmarks } from '../components/Bookmark';
