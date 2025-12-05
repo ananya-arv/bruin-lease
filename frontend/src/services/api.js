@@ -1,4 +1,16 @@
-// frontend/src/services/api.js
+/**
+ * API Service Module
+ * 
+ * Central configuration and service methods for all HTTP requests to the backend API.
+ * Handles authentication, request/response interceptors, and provides organized
+ * API endpoints for different features (auth, listings, messages, reviews).
+ * 
+ * All requests automatically include JWT authentication tokens when available.
+ * Base URL configured for local development - update for production deployment.
+ * 
+ * @module services/api
+ */
+
 import axios from 'axios';
 
 // Create axios instance with base URL
@@ -23,14 +35,14 @@ api.interceptors.request.use(
   }
 );
 
-// Auth API calls
+// Auth API calls - Handles user registration, login, and profile retrieval
 export const authAPI = {
   register: (userData) => api.post('/auth/register', userData),
   login: (credentials) => api.post('/auth/login', credentials),
   getMe: () => api.get('/auth/me')
 };
 
-// Listing API calls
+// Listing API calls - Handles all housing listing CRUD operations
 export const listingAPI = {
   getAllListings: () => api.get('/listings'),
   getListing: (id) => api.get(`/listings/${id}`),
@@ -40,7 +52,7 @@ export const listingAPI = {
   getMyListings: () => api.get('/listings/my-listings')
 };
 
-// Message API calls
+// Message API calls - Handles direct messaging between users
 export const messageAPI = {
   sendMessage: (messageData) => api.post('/messages', messageData),
   getConversation: (userId) => api.get(`/messages/conversation/${userId}`),
@@ -50,7 +62,7 @@ export const messageAPI = {
   deleteMessage: (id) => api.delete(`/messages/${id}`)
 };
 
-// Review API calls
+// Review API calls - Handles listing reviews and ratings
 export const reviewAPI = {
   getReviews: (listingId) => api.get(`/listings/${listingId}/reviews`),
   createReview: (listingId, reviewData) => api.post(`/listings/${listingId}/reviews`, reviewData),
