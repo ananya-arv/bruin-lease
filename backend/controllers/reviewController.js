@@ -1,3 +1,15 @@
+/**
+ * Review Controller
+ * 
+ * Handles listing review and rating functionality.
+ * Allows users to create, read, update, and delete reviews for housing listings.
+ * Implements business rules: users cannot review their own listings,
+ * each user can only review a listing once, and automatically calculates
+ * average ratings for listings.
+ * 
+ * @module controllers/reviewController
+ */
+
 const Review = require('../models/Review');
 const Listing = require('../models/Listing');
 const validator = require('validator');
@@ -113,6 +125,37 @@ const createReview = async (req, res) => {
     });
   }
 };
+
+/**
+ * Update existing review
+ * Protected endpoint - only review author can update
+ * Supports partial updates (can update rating, comment, or both)
+ * Automatically recalculates listing's average rating after update
+ * 
+ * @async
+ * @function updateReview
+ * @param {Object} req - Express request object
+ * @param {string} req.params.id - Review ID to update
+ * @param {Object} req.user - Authenticated user object
+ * @param {Object} req.body - Updated review data
+ * @param {number} [req.body.rating] - Updated rating (1-5)
+ * @param {string} [req.body.comment] - Updated comment (10-500 characters)
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>} Sends JSON response with updated review
+ * 
+ * @throws {400} Invalid rating (not between 1-5)
+ * @throws {400} Empty comment after trimming
+ * @throws {400} Comment length not between 10-500 characters
+ * @throws {403} Not authorized (user is not the review author)
+ * @throws {404} Review not found
+ * @throws {500} Error updating review
+ * 
+ * Success Response (200):
+ * {
+ *   status: 'success',
+ *   data: Review (updated with populated user)
+ * }
+ */
 
 
 const updateReview = async (req, res) => {

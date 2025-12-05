@@ -1,3 +1,13 @@
+/**
+ * Listing Controller
+ * 
+ * Handles all housing listing operations including creation, retrieval, updates, and deletion.
+ * Implements comprehensive validation for listing data, image processing, and ownership verification.
+ * Supports both public listings view and authenticated user's personal listings management.
+ * 
+ * @module controllers/listingController
+ */
+
 const Listing = require('../models/Listing');
 const validator = require('validator');
 const xss = require('xss');
@@ -6,6 +16,31 @@ const sanitizeString = (str) => {
   if (!str) return str;
   return xss(validator.trim(str));
 };
+
+/**
+ * Validates and sanitizes all listing input data
+ * Performs comprehensive validation on all required and optional fields
+ * 
+ * @function validateAndSanitizeListingInput
+ * @param {Object} data - Raw listing data from request body
+ * @returns {Object} Object containing errors array and sanitized data object
+ * @returns {Array<string>} return.errors - Array of validation error messages
+ * @returns {Object} return.sanitized - Object with validated and sanitized fields
+ * @private
+ * 
+ * Validation Rules:
+ * - title: 3-100 characters, required
+ * - price: 0-50000, numeric, required
+ * - address: 5-200 characters, required
+ * - zipCode: Valid postal code format, required
+ * - country: 2-50 characters, required
+ * - bedrooms: 0-20, integer, required
+ * - distanceFromUCLA: 0-100 miles, numeric, required
+ * - leaseDuration: 1-50 characters, required
+ * - description: 10-2000 characters, required
+ * - images: Array of base64 data URLs, max 10 images, optional
+ * - availability: One of [Available, Pending, Rented], optional
+ */
 
 const validateAndSanitizeListingInput = (data) => {
   const errors = [];

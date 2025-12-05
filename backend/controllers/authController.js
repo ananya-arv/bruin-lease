@@ -1,3 +1,13 @@
+/**
+ * Authentication Controller
+ * 
+ * Handles user authentication operations including registration, login, and profile retrieval.
+ * Implements UCLA email verification, password hashing, and JWT token generation.
+ * All routes validate and sanitize user input to prevent security vulnerabilities.
+ * 
+ * @module controllers/authController
+ */
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
@@ -14,6 +24,43 @@ const generateToken = (id) => {
     expiresIn: '30d',
   });
 };
+
+/**
+ * Register new user account
+ * Creates user with UCLA email verification and secure password hashing
+ * 
+ * Validation Rules:
+ * - Name: 2-50 characters, required
+ * - Email: Must be valid @ucla.edu address
+ * - Password: Minimum 6 characters with at least one lowercase letter
+ * 
+ * @async
+ * @function register
+ * @param {Object} req - Express request object
+ * @param {Object} req.body - Request body containing user data
+ * @param {string} req.body.name - User's full name
+ * @param {string} req.body.email - User's UCLA email address
+ * @param {string} req.body.password - User's password
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>} Sends JSON response with user data and token
+ * 
+ * @throws {400} Name validation errors (missing, too short/long)
+ * @throws {400} Email validation errors (missing, invalid format, not @ucla.edu)
+ * @throws {400} Password validation errors (missing, too short, weak)
+ * @throws {400} User already exists with this email
+ * @throws {500} Server error during registration
+ * 
+ * Success Response (201):
+ * {
+ *   status: 'success',
+ *   data: {
+ *     id: string,
+ *     name: string,
+ *     email: string,
+ *     token: string
+ *   }
+ * }
+ */
 
 
 const register = async (req, res) => {

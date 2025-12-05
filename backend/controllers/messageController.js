@@ -1,3 +1,13 @@
+/**
+ * Message Controller
+ * 
+ * Handles direct messaging functionality between users.
+ * Supports sending messages, retrieving conversations, marking messages as read,
+ * and managing message threads. Includes read receipts and conversation grouping.
+ * 
+ * @module controllers/messageController
+ */
+
 const Message = require('../models/Message');
 const User = require('../models/User');
 const validator = require('validator');
@@ -7,6 +17,36 @@ const sanitizeString = (str) => {
   if (!str) return str;
   return xss(validator.trim(str));
 };
+
+/**
+ * Send message to another user
+ * Creates new message and optionally associates it with a listing
+ * Validates receiver exists and prevents self-messaging
+ * 
+ * @async
+ * @function sendMessage
+ * @param {Object} req - Express request object
+ * @param {Object} req.user - Authenticated user object (sender)
+ * @param {Object} req.body - Message data
+ * @param {string} req.body.receiverId - Recipient user ID
+ * @param {string} req.body.content - Message content (1-1000 characters)
+ * @param {string} [req.body.listingId] - Optional listing ID to associate with message
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>} Sends JSON response with created message
+ * 
+ * @throws {400} Missing receiver or content
+ * @throws {400} Message content is empty after trimming
+ * @throws {400} Message exceeds 1000 character limit
+ * @throws {400} Attempting to send message to self
+ * @throws {404} Receiver user not found
+ * @throws {500} Error sending message
+ * 
+ * Success Response (201):
+ * {
+ *   status: 'success',
+ *   data: Message (with populated sender, receiver, and listing)
+ * }
+ */
 
 const sendMessage = async (req, res) => {
   try {
