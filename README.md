@@ -21,8 +21,8 @@ The system follows a standard Client-Server architecture, utilizing the MERN sta
   <img src="./sequence-diagram.png" alt="Sequence Diagram of User Registration Flow" width="800">
 </p>
 
-Database represents MongoDB 
-Backend represents Node.js
+Database represents MongoDB |
+Backend represents Node.js |
 Frontend represents React.js
 
 **Flow Summary:**
