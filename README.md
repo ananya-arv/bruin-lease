@@ -15,16 +15,20 @@ BruinLease is a secure, full-stack MERN (MongoDB, Express, React, Node.js) appli
 
 The system follows a standard Client-Server architecture, utilizing the MERN stack for development agility and consistency.
 
-### 1. Client-Server Architecture
+### 1. User Registration Flow Sequence Diagram (Sample Flow)
 
-This architecture illustrates the separation of concerns between the React frontend, the Node/Express API, and the MongoDB database cluster, highlighting the secure communication flow using JWTs. {INSERT DIAGRAM - PLACEHOLDER}
+<p align="center">
+  <img src="./sequence-diagram.png" alt="Sequence Diagram of User Registration Flow" width="800">
+</p>
 
-| Component | Technology | Responsibility |
-|-----------|------------|----------------|
-| **Client** | React | Renders UI, manages component state, and handles image compression/Base64 encoding. Communicates via RESTful API calls. |
-| **API Server** | Node.js / Express | **(Middleware)** Authenticates JWTs, enforces Least Privilege. **(Controllers)** Executes business logic, performs input validation/sanitization. **(Routes)** Maps endpoints to controller functions. |
-| **Database** | MongoDB / Mongoose | Persistent storage for Users, Listings, Reviews, and Messages. Mongoose models enforce schema integrity and use parameterized queries. |
-| **Connectors** | HTTP/REST (JSON) | Primary communication method. All protected requests include a JWT in the `Authorization: Bearer` header. |
+**Flow Summary:**
+1. User submits registration with UCLA email
+2. Backend validates input (email format, password strength)
+3. System checks if user already exists
+4. Password is hashed with bcrypt
+5. User account is created in MongoDB
+6. JWT token is generated and returned
+7. User is redirected to dashboard
 
 ### 2. Entity-Relationship Diagram (ERD)
 
